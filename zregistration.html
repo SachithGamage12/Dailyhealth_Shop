@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 0.5rem;
+        }
+        
+        .full-width {
+            grid-column: span 3;
+        }
+        
+        .half-width {
+            grid-column: span 2;
+        }
+        
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 0.2rem;
+        }
+        
+        input,
+        select {
+            width: 100%;
+            height: 40px;
+            padding: 0.6rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            background: #f9fafb;
+            box-sizing: border-box;
+        }
+        
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 4px rgba(59, 130, 246, 0.3);
+            background: white;
+        }
+        
+        input:disabled {
+            background: #e5e7eb;
+            cursor: not-allowed;
+        }
+        
+        .social-media-table {
+            width: 100%;
+            background: #eff6ff;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border-collapse: collapse;
+        }
+        
+        .social-media-table th,
+        .social-media-table td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .social-media-table th {
+            font-weight: 600;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+        
+        .social-media-table td {
+            font-size: 0.9rem;
+            color: #1e3a8a;
+        }
+        
+        .social-media-table input[type="text"] {
+            margin-top: 0.3rem;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            height: 40px;
+        }
+        
+        .social-media-table input[type="text"].visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .submit-btn {
+            grid-column: span 3;
+            width: 100%;
+            height: 40px;
+            padding: 0.75rem;
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to right, #2563eb, #db2777);
+            transform: translateY(-2px);
+        }
+        
+        .add-btn {
+            width: 100%;
+            max-width: 200px;
+            height: 40px;
+            padding: 0.5rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+        }
+        
+        .add-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+        
+        .remove-btn {
+            width: 100%;
+            max-width: 100px;
+            height: 40px;
+            padding: 0.5rem;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .remove-btn:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .form-group.hidden {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        
+        .dependents-row,
+        .family-row,
+        .contact-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 100px;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            margin-bottom: 0.3rem;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .dependents-row.visible,
+        .family-row.visible,
+        .contact-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .dependents-row:first-child .remove-btn,
+        .family-row:first-child .remove-btn,
+        .contact-row:first-child .remove-btn {
+            display: none;
+        }
+        
+        .other-relationship-input,
+        .other-civil-status-input,
+        .other-nationality-input,
+        .other-race-input,
+        .other-religion-input,
+        .other-source-income-input,
+        .other-occupation-input,
+        .parent-subcategory {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            height: 40px;
+        }
+        
+        .other-relationship-input.visible,
+        .other-civil-status-input.visible,
+        .other-nationality-input.visible,
+        .other-race-input.visible,
+        .other-religion-input.visible,
+        .other-source-income-input.visible,
+        .other-occupation-input.visible,
+        .parent-subcategory.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width,
+            .half-width {
+                grid-column: span 1;
+            }
+            .social-media-table {
+                display: block;
+            }
+            .social-media-table th,
+            .social-media-table td {
+                display: block;
+                width: 100%;
+            }
+            .dependents-row,
+            .family-row,
+            .contact-row {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+            }
+            .dependents-row select,
+            .family-row select,
+            .contact-row select,
+            .dependents-row input[type="text"],
+            .family-row input[type="text"],
+            .contact-row input[type="text"],
+            .dependents-row .remove-btn,
+            .family-row .remove-btn,
+            .contact-row .remove-btn {
+                grid-column: 1 / -1;
+                width: 100%;
+                height: 40px;
+            }
+            h1 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Registration Form</h1>
+        <form id="adminUserForm">
+            <div class="form-grid">
+                <!-- Row 1: Registration Date, Registration Number -->
+                <div class="form-group">
+                    <label for="adminRegistrationDate">Registration Date</label>
+                    <input type="text" id="adminRegistrationDate" value="2025-07-20" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="adminRegistrationNumber">Registration Number</label>
+                    <input type="text" id="adminRegistrationNumber" value="" disabled>
+                </div>
+                <!-- Row 2: Name with Initials, Preferred Name -->
+                <div class="form-group half-width">
+                    <label for="adminNameWithInitials">Name with Initials</label>
+                    <input type="text" id="adminNameWithInitials" name="nameWithInitials">
+                </div>
+                <div class="form-group half-width">
+                    <label for="adminPreferredName">Preferred Name</label>
+                    <input type="text" id="adminPreferredName" name="preferredName">
+                </div>
+                <!-- Row 3: Permanent Address, Area of Living -->
+                <div class="form-group half-width">
+                    <label for="adminPermanentAddress">Permanent Address</label>
+                    <input type="text" id="adminPermanentAddress" name="permanentAddress">
+                </div>
+                <div class="form-group half-width">
+                    <label for="adminAreaOfLiving">Area of Living</label>
+                    <select id="adminAreaOfLiving" name="areaOfLiving">
+        <option value="">Select</option>
+        <!-- Colombo District -->
+        <option value="Colombo">Colombo</option>
+        <option value="Kolonnawa">Kolonnawa</option>
+        <option value="Kaduwela">Kaduwela</option>
+        <option value="Homagama">Homagama</option>
+        <option value="Seethawaka (Hanwella)">Seethawaka (Hanwella)</option>
+        <option value="Padukka">Padukka</option>
+        <option value="Maharagama">Maharagama</option>
+        <option value="Sri Jayawardanapura Kotte">Sri Jayawardanapura Kotte</option>
+        <option value="Thimbirigasyaya">Thimbirigasyaya</option>
+        <option value="Dehiwala">Dehiwala</option>
+        <option value="Ratmalana">Ratmalana</option>
+        <option value="Moratuwa">Moratuwa</option>
+        <option value="Kesbewa">Kesbewa</option>
+        <!-- Gampaha District -->
+        <option value="Negombo">Negombo</option>
+        <option value="Katana">Katana</option>
+        <option value="Divulapitiya">Divulapitiya</option>
+        <option value="Mirigama">Mirigama</option>
+        <option value="Minuwangoda">Minuwangoda</option>
+        <option value="Wattala">Wattala</option>
+        <option value="Ja-Ela">Ja-Ela</option>
+        <option value="Gampaha">Gampaha</option>
+        <option value="Attanagalla">Attanagalla</option>
+        <option value="Dompe">Dompe</option>
+        <option value="Mahara">Mahara</option>
+        <option value="Kelaniya">Kelaniya</option>
+        <option value="Biyagama">Biyagama</option>
+        <!-- Kalutara District -->
+        <option value="Panadura">Panadura</option>
+        <option value="Bandaragama">Bandaragama</option>
+        <option value="Horana">Horana</option>
+        <option value="Ingiriya">Ingiriya</option>
+        <option value="Bulathsinhala">Bulathsinhala</option>
+        <option value="Madurawala">Madurawala</option>
+        <option value="Millaniya">Millaniya</option>
+        <option value="Kalutara">Kalutara</option>
+        <option value="Beruwala">Beruwala</option>
+        <option value="Dodangoda">Dodangoda</option>
+        <option value="Mathugama">Mathugama</option>
+        <option value="Agalawatta">Agalawatta</option>
+        <option value="Palindanuwara">Palindanuwara</option>
+        <option value="Walallavita">Walallavita</option>
+        <!-- Kandy District -->
+        <option value="Thumpane">Thumpane</option>
+        <option value="Pujapitiya">Pujapitiya</option>
+        <option value="Akurana">Akurana</option>
+        <option value="Pathadumbara">Pathadumbara</option>
+        <option value="Panvila">Panvila</option>
+        <option value="Udadumbara">Udadumbara</option>
+        <option value="Minipe">Minipe</option>
+        <option value="Medadumbara">Medadumbara</option>
+        <option value="Kundasale">Kundasale</option>
+        <option value="Kandy Four Gravets & Gangawata Korale">Kandy Four Gravets & Gangawata Korale</option>
+        <option value="Harispattuwa">Harispattuwa</option>
+        <option value="Hatharaliyadda">Hatharaliyadda</option>
+        <option value="Yatinuwara">Yatinuwara</option>
+        <option value="Udunuwara">Udunuwara</option>
+        <option value="Doluwa">Doluwa</option>
+        <option value="Pathahewaheta">Pathahewaheta</option>
+        <option value="Deltota">Deltota</option>
+        <option value="Udapalatha">Udapalatha</option>
+        <option value="Ganga Ihala Korale">Ganga Ihala Korale</option>
+        <option value="Pasbage Korale">Pasbage Korale</option>
+        <!-- Matale District -->
+        <option value="Galewela">Galewela</option>
+        <option value="Dambulla">Dambulla</option>
+        <option value="Naula">Naula</option>
+        <option value="Pallepola">Pallepola</option>
+        <option value="Yatawatta">Yatawatta</option>
+        <option value="Matale">Matale</option>
+        <option value="Ambanganga Korale">Ambanganga Korale</option>
+        <option value="Laggala-Pallegama">Laggala-Pallegama</option>
+        <option value="Wilgamuwa">Wilgamuwa</option>
+        <option value="Rattota">Rattota</option>
+        <option value="Ukuwela">Ukuwela</option>
+        <!-- Nuwara Eliya District -->
+        <option value="Kothmale">Kothmale</option>
+        <option value="Hanguranketha">Hanguranketha</option>
+        <option value="Walapane">Walapane</option>
+        <option value="Nuwara Eliya">Nuwara Eliya</option>
+        <option value="Ambagamuwa">Ambagamuwa</option>
+        <!-- Galle District -->
+        <option value="Bentota">Bentota</option>
+        <option value="Balapitiya">Balapitiya</option>
+        <option value="Karandeniya">Karandeniya</option>
+        <option value="Elpitiya">Elpitiya</option>
+        <option value="Niyagama">Niyagama</option>
+        <option value="Thawalama">Thawalama</option>
+        <option value="Neluwa">Neluwa</option>
+        <option value="Nagoda">Nagoda</option>
+        <option value="Baddegama">Baddegama</option>
+        <option value="Welivitiya-Divithura">Welivitiya-Divithura</option>
+        <option value="Ambalangoda">Ambalangoda</option>
+        <option value="Gonapeenuwala">Gonapeenuwala</option>
+        <option value="Hikkaduwa">Hikkaduwa</option>
+        <option value="Galle Four Gravets">Galle Four Gravets</option>
+        <option value="Bope-Poddala">Bope-Poddala</option>
+        <option value="Akmeemana">Akmeemana</option>
+        <option value="Yakkalamulla">Yakkalamulla</option>
+        <option value="Imaduwa">Imaduwa</option>
+        <option value="Habaraduwa">Habaraduwa</option>
+        <!-- Matara District -->
+        <option value="Pitabeddara">Pitabeddara</option>
+        <option value="Kotapola">Kotapola</option>
+        <option value="Pasgoda">Pasgoda</option>
+        <option value="Mulatiyana">Mulatiyana</option>
+        <option value="Athuraliya">Athuraliya</option>
+        <option value="Akuressa">Akuressa</option>
+        <option value="Welipitiya">Welipitiya</option>
+        <option value="Malimbada">Malimbada</option>
+        <option value="Kamburupitiya">Kamburupitiya</option>
+        <option value="Hakmana">Hakmana</option>
+        <option value="Kirinda Puhulwella">Kirinda Puhulwella</option>
+        <option value="Thihagoda">Thihagoda</option>
+        <option value="Weligama">Weligama</option>
+        <option value="Matara Four Gravets">Matara Four Gravets</option>
+        <option value="Devinuwara">Devinuwara</option>
+        <option value="Dickwella">Dickwella</option>
+        <!-- Hambantota District -->
+        <option value="Sooriyawewa">Sooriyawewa</option>
+        <option value="Lunugamvehera">Lunugamvehera</option>
+        <option value="Thissamaharama">Thissamaharama</option>
+        <option value="Hambantota">Hambantota</option>
+        <option value="Ambalantota">Ambalantota</option>
+        <option value="Angunakolapelessa">Angunakolapelessa</option>
+        <option value="Weeraketiya">Weeraketiya</option>
+        <option value="Katuwana">Katuwana</option>
+        <option value="Walasmulla">Walasmulla</option>
+        <option value="Okewela">Okewela</option>
+        <option value="Beliatta">Beliatta</option>
+        <option value="Tangalle">Tangalle</option>
+        <!-- Jaffna District -->
+        <option value="Island North (Kayts)">Island North (Kayts)</option>
+        <option value="Karainagar">Karainagar</option>
+        <option value="Valikamam West (Chankanai)">Valikamam West (Chankanai)</option>
+        <option value="Valikamam South-West (Sandilipay)">Valikamam South-West (Sandilipay)</option>
+        <option value="Valikamam North (Tellipallai)">Valikamam North (Tellipallai)</option>
+        <option value="Valikamam South (Uduvil)">Valikamam South (Uduvil)</option>
+        <option value="Valikamam East (Kopay)">Valikamam East (Kopay)</option>
+        <option value="Vadamaradchi South-West (Karaveddy)">Vadamaradchi South-West (Karaveddy)</option>
+        <option value="Vadamaradchi East">Vadamaradchi East</option>
+        <option value="Vadamaradchi North (Point Pedro)">Vadamaradchi North (Point Pedro)</option>
+        <option value="Thenmaradchi (Chavakachcheri)">Thenmaradchi (Chavakachcheri)</option>
+        <option value="Nallur">Nallur</option>
+        <option value="Jaffna">Jaffna</option>
+        <option value="Island South (Velanai)">Island South (Velanai)</option>
+        <option value="Delft">Delft</option>
+        <!-- Mannar District -->
+        <option value="Mannar Town">Mannar Town</option>
+        <option value="Manthai West">Manthai West</option>
+        <option value="Madhu">Madhu</option>
+        <option value="Nanattan">Nanattan</option>
+        <option value="Musali">Musali</option>
+        <!-- Vavuniya District -->
+        <option value="Vavuniya North">Vavuniya North</option>
+        <option value="Vavuniya South">Vavuniya South</option>
+        <option value="Vavuniya">Vavuniya</option>
+        <option value="Vengalacheddikulam">Vengalacheddikulam</option>
+        <!-- Mullaitivu District -->
+        <option value="Thunukkai">Thunukkai</option>
+        <option value="Manthai East">Manthai East</option>
+        <option value="Puthukkudiyiruppu">Puthukkudiyiruppu</option>
+        <option value="Oddusuddan">Oddusuddan</option>
+        <option value="Maritimepattu">Maritimepattu</option>
+        <option value="Welioya">Welioya</option>
+        <!-- Kilinochchi District -->
+        <option value="Pachchilaipalli">Pachchilaipalli</option>
+        <option value="Kandavalai">Kandavalai</option>
+        <option value="Karachchi">Karachchi</option>
+        <option value="Poonakary">Poonakary</option>
+        <!-- Batticaloa District -->
+        <option value="Koralai Pattu North (Vaharai)">Koralai Pattu North (Vaharai)</option>
+        <option value="Koralai Pattu Central">Koralai Pattu Central</option>
+        <option value="Koralai Pattu West (Oddamavadi)">Koralai Pattu West (Oddamavadi)</option>
+        <option value="Koralai Pattu (Valachchenai)">Koralai Pattu (Valachchenai)</option>
+        <option value="Koralai Pattu South (Kiran)">Koralai Pattu South (Kiran)</option>
+        <option value="Eravur Pattu">Eravur Pattu</option>
+        <option value="Eravur Town">Eravur Town</option>
+        <option value="Manmunai North">Manmunai North</option>
+        <option value="Manmunai West">Manmunai West</option>
+        <option value="Kattankudy">Kattankudy</option>
+        <option value="Manmunai Pattu (Araipattai)">Manmunai Pattu (Araipattai)</option>
+        <option value="Manmunai South-West">Manmunai South-West</option>
+        <option value="Porativu Pattu">Porativu Pattu</option>
+        <option value="Manmunai South & Eruvil Pattu">Manmunai South & Eruvil Pattu</option>
+        <!-- Ampara District -->
+        <option value="Dehiattakandiya">Dehiattakandiya</option>
+        <option value="Padiyathalawa">Padiyathalawa</option>
+        <option value="Mahaoya">Mahaoya</option>
+        <option value="Uhana">Uhana</option>
+        <option value="Ampara">Ampara</option>
+        <option value="Navithanveli">Navithanveli</option>
+        <option value="Sammanthurai">Sammanthurai</option>
+        <option value="Kalmunai Tamil Division">Kalmunai Tamil Division</option>
+        <option value="Kalmunai">Kalmunai</option>
+        <option value="Sainthamaruthu">Sainthamaruthu</option>
+        <option value="Karaitheevu">Karaitheevu</option>
+        <option value="Ninthavur">Ninthavur</option>
+        <option value="Addalaichchenai">Addalaichchenai</option>
+        <option value="Irakkamam">Irakkamam</option>
+        <option value="Akkaraipattu">Akkaraipattu</option>
+        <option value="Alayadiwembu">Alayadiwembu</option>
+        <option value="Damana">Damana</option>
+        <option value="Thirukkovil">Thirukkovil</option>
+        <option value="Pothuvil">Pothuvil</option>
+        <option value="Lahugala">Lahugala</option>
+        <!-- Trincomalee District -->
+        <option value="Padavi Sri Pura">Padavi Sri Pura</option>
+        <option value="Kuchchaveli">Kuchchaveli</option>
+        <option value="Gomarankadawala">Gomarankadawala</option>
+        <option value="Morawewa">Morawewa</option>
+        <option value="Trincomalee Town and Gravets">Trincomalee Town and Gravets</option>
+        <option value="Thambalagamuwa">Thambalagamuwa</option>
+        <option value="Kanthale">Kanthale</option>
+        <option value="Kinniya">Kinniya</option>
+        <option value="Muttur">Muttur</option>
+        <option value="Seruvila">Seruvila</option>
+        <option value="Verugal (Eachchilampattu)">Verugal (Eachchilampattu)</option>
+        <!-- Kurunegala District -->
+        <option value="Giribawa">Giribawa</option>
+        <option value="Galgamuwa">Galgamuwa</option>
+        <option value="Ehetuwewa">Ehetuwewa</option>
+        <option value="Ambanpola">Ambanpola</option>
+        <option value="Kotavehera">Kotavehera</option>
+        <option value="Rasnayakapura">Rasnayakapura</option>
+        <option value="Nikaweratiya">Nikaweratiya</option>
+        <option value="Maho">Maho</option>
+        <option value="Polpithigama">Polpithigama</option>
+        <option value="Ibbagamuwa">Ibbagamuwa</option>
+        <option value="Ganewatta">Ganewatta</option>
+        <option value="Wariyapola">Wariyapola</option>
+        <option value="Kobeigane">Kobeigane</option>
+        <option value="Bingiriya">Bingiriya</option>
+        <option value="Panduwasnuwara West">Panduwasnuwara West</option>
+        <option value="Panduwasnuwara East">Panduwasnuwara East</option>
+        <option value="Bamunakotuwa">Bamunakotuwa</option>
+        <option value="Maspotha">Maspotha</option>
+        <option value="Kurunegala">Kurunegala</option>
+        <option value="Mallawapitiya">Mallawapitiya</option>
+        <option value="Mawathagama">Mawathagama</option>
+        <option value="Rideegama">Rideegama</option>
+        <option value="Weerambugedara">Weerambugedara</option>
+        <option value="Kuliyapitiya East">Kuliyapitiya East</option>
+        <option value="Kuliyapitiya West">Kuliyapitiya West</option>
+        <option value="Udubaddawa">Udubaddawa</option>
+        <option value="Pannala">Pannala</option>
+        <option value="Narammala">Narammala</option>
+        <option value="Alawwa">Alawwa</option>
+        <option value="Polgahawela">Polgahawela</option>
+        <!-- Puttalam District -->
+        <option value="Kalpitiya">Kalpitiya</option>
+        <option value="Vanathawilluwa">Vanathawilluwa</option>
+        <option value="Karuwalagaswewa">Karuwalagaswewa</option>
+        <option value="Nawagattegama">Nawagattegama</option>
+        <option value="Puttalam">Puttalam</option>
+        <option value="Mundel">Mundel</option>
+        <option value="Mahakumbukkadawala">Mahakumbukkadawala</option>
+        <option value="Anamaduwa">Anamaduwa</option>
+        <option value="Pallama">Pallama</option>
+        <option value="Arachchikattuwa">Arachchikattuwa</option>
+        <option value="Chilaw">Chilaw</option>
+        <option value="Madampe">Madampe</option>
+        <option value="Mahawewa">Mahawewa</option>
+        <option value="Nattandiya">Nattandiya</option>
+        <option value="Wennappuwa">Wennappuwa</option>
+        <option value="Dankotuwa">Dankotuwa</option>
+        <!-- Anuradhapura District -->
+        <option value="Padaviya">Padaviya</option>
+        <option value="Kebithigollewa">Kebithigollewa</option>
+        <option value="Medawachchiya">Medawachchiya</option>
+        <option value="Mahawilachchiya">Mahawilachchiya</option>
+        <option value="Nuwaragam Palatha Central">Nuwaragam Palatha Central</option>
+        <option value="Rambewa">Rambewa</option>
+        <option value="Kahatagasdigiliya">Kahatagasdigiliya</option>
+        <option value="Horowpothana">Horowpothana</option>
+        <option value="Galenbindunuwewa">Galenbindunuwewa</option>
+        <option value="Mihinthale">Mihinthale</option>
+        <option value="Nuwaragam Palatha East">Nuwaragam Palatha East</option>
+        <option value="Nachchaduwa">Nachchaduwa</option>
+        <option value="Nochchiyagama">Nochchiyagama</option>
+        <option value="Rajanganaya">Rajanganaya</option>
+        <option value="Thambuttegama">Thambuttegama</option>
+        <option value="Thalawa">Thalawa</option>
+        <option value="Thirappane">Thirappane</option>
+        <option value="Kekirawa">Kekirawa</option>
+        <option value="Palugaswewa">Palugaswewa</option>
+        <option value="Ipalogama">Ipalogama</option>
+        <option value="Galnewa">Galnewa</option>
+        <option value="Palagala">Palagala</option>
+        <!-- Polonnaruwa District -->
+        <option value="Hingurakgoda">Hingurakgoda</option>
+        <option value="Medirigiriya">Medirigiriya</option>
+        <option value="Lankapura">Lankapura</option>
+        <option value="Welikanda">Welikanda</option>
+        <option value="Dimbulagala">Dimbulagala</option>
+        <option value="Thamankaduwa">Thamankaduwa</option>
+        <option value="Elahera">Elahera</option>
+        <!-- Badulla District -->
+        <option value="Mahiyanganaya">Mahiyanganaya</option>
+        <option value="Rideemaliyadda">Rideemaliyadda</option>
+        <option value="Meegahakivula">Meegahakivula</option>
+        <option value="Kandaketiya">Kandaketiya</option>
+        <option value="Soranathota">Soranathota</option>
+        <option value="Passara">Passara</option>
+        <option value="Lunugala">Lunugala</option>
+        <option value="Badulla">Badulla</option>
+        <option value="Hali-Ela">Hali-Ela</option>
+        <option value="Uva Paranagama">Uva Paranagama</option>
+        <option value="Welimada">Welimada</option>
+        <option value="Bandarawela">Bandarawela</option>
+        <option value="Ella">Ella</option>
+        <option value="Haputale">Haputale</option>
+        <option value="Haldummulla">Haldummulla</option>
+        <!-- Moneragala District -->
+        <option value="Bibile">Bibile</option>
+        <option value="Madulla">Madulla</option>
+        <option value="Medagama">Medagama</option>
+        <option value="Siyambalanduwa">Siyambalanduwa</option>
+        <option value="Moneragala">Moneragala</option>
+        <option value="Badalkumbura">Badalkumbura</option>
+        <option value="Wellawaya">Wellawaya</option>
+        <option value="Buttala">Buttala</option>
+        <option value="Katharagama">Katharagama</option>
+        <option value="Thanamalvila">Thanamalvila</option>
+        <option value="Sevanagala">Sevanagala</option>
+        <!-- Ratnapura District -->
+        <option value="Eheliyagoda">Eheliyagoda</option>
+        <option value="Kuruvita">Kuruvita</option>
+        <option value="Kiriella">Kiriella</option>
+        <option value="Ratnapura">Ratnapura</option>
+        <option value="Imbulpe">Imbulpe</option>
+        <option value="Balangoda">Balangoda</option>
+        <option value="Opanayake">Opanayake</option>
+        <option value="Pelmadulla">Pelmadulla</option>
+        <option value="Elapatha">Elapatha</option>
+        <option value="Ayagama">Ayagama</option>
+        <option value="Kalawana">Kalawana</option>
+        <option value="Nivithigala">Nivithigala</option>
+        <option value="Kahawatta">Kahawatta</option>
+        <option value="Godakawela">Godakawela</option>
+        <option value="Weligepola">Weligepola</option>
+        <option value="Embilipitiya">Embilipitiya</option>
+        <option value="Kolonna">Kolonna</option>
+        <!-- Kegalle District -->
+        <option value="Rambukkana">Rambukkana</option>
+        <option value="Mawanella">Mawanella</option>
+        <option value="Aranayaka">Aranayaka</option>
+        <option value="Kegalle">Kegalle</option>
+        <option value="Galigamuwa">Galigamuwa</option>
+        <option value="Warakapola">Warakapola</option>
+        <option value="Ruwanwella">Ruwanwella</option>
+        <option value="Bulathkohupitiya">Bulathkohupitiya</option>
+        <option value="Yatiyanthota">Yatiyanthota</option>
+        <option value="Dehiovita">Dehiovita</option>
+        <option value="Deraniyagala">Deraniyagala</option>
+    </select>
+                </div>
+                <!-- Row 4: Contact Numbers, Email -->
+                <div class="form-group half-width">
+                    <label>Contact Numbers</label>
+                    <div id="contactContainer">
+                        <div class="contact-row visible">
+                            <input type="tel" name="contactNumber1" placeholder="Enter Contact Number">
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addContactRow()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                        Add Contact Number
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label for="adminEmail">Email</label>
+                    <input type="email" id="adminEmail" name="email">
+                </div>
+                <!-- Row 5: Social Media -->
+                <div class="form-group full-width">
+                    <label>Social Media</label>
+                    <table class="social-media-table">
+                        <thead>
+                            <tr>
+                                <th>Platform</th>
+                                <th>Select</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>WhatsApp</td>
+                                <td><input type="checkbox" name="socialMedia" value="whatsapp" id="whatsappCheckbox"></td>
+                                <td><input type="text" id="whatsappDetails" name="whatsappDetails" class="hidden" placeholder="Enter WhatsApp Number"></td>
+                            </tr>
+                            <tr>
+                                <td>Facebook</td>
+                                <td><input type="checkbox" name="socialMedia" value="facebook" id="facebookCheckbox"></td>
+                                <td><input type="text" id="facebookDetails" name="facebookDetails" class="hidden" placeholder="Enter Facebook Profile URL"></td>
+                            </tr>
+                            <tr>
+                                <td>Instagram</td>
+                                <td><input type="checkbox" name="socialMedia" value="instagram" id="instagramCheckbox"></td>
+                                <td><input type="text" id="instagramDetails" name="instagramDetails" class="hidden" placeholder="Enter Instagram Profile URL"></td>
+                            </tr>
+                            <tr>
+                                <td>YouTube</td>
+                                <td><input type="checkbox" name="socialMedia" value="youtube" id="youtubeCheckbox"></td>
+                                <td><input type="text" id="youtubeDetails" name="youtubeDetails" class="hidden" placeholder="Enter YouTube Channel URL"></td>
+                            </tr>
+                            <tr>
+                                <td>Twitter(X)</td>
+                                <td><input type="checkbox" name="socialMedia" value="twitter" id="twitterCheckbox"></td>
+                                <td><input type="text" id="twitterDetails" name="twitterDetails" class="hidden" placeholder="Enter Twitter(X) Profile URL"></td>
+                            </tr>
+                            <tr>
+                                <td>Other</td>
+                                <td><input type="checkbox" name="socialMedia" value="other" id="otherCheckbox"></td>
+                                <td><input type="text" id="otherDetails" name="otherDetails" class="hidden" placeholder="Enter Other Social Media URL"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Row 6: Date of Birth, Civil Status, Nationality, Gender -->
+                <div class="form-group">
+                    <label for="adminDateOfBirth">Date of Birth</label>
+                    <input type="date" id="adminDateOfBirth" name="dateOfBirth">
+                </div>
+                <div class="form-group">
+                    <label for="adminCivilStatus">Civil Status</label>
+                    <select id="adminCivilStatus" name="civilStatus" onchange="toggleOtherCivilStatus()">
+                        <option value="">Select</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Divorced/Separated">Divorced/Separated</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Single Mom/Dad">Single Mom/Dad</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="adminCustomCivilStatus" name="customCivilStatus" class="other-civil-status-input hidden" placeholder="Specify Civil Status">
+                </div>
+                <div class="form-group">
+                    <label for="adminNationality">Nationality</label>
+                    <select id="adminNationality" name="nationality" onchange="toggleOtherNationality()">
+                        <option value="">Select</option>
+                        <option value="Sri Lankan">Sri Lankan</option>
+                        <option value="Non-Sri Lankan">Non-Sri Lankan</option>
+                    </select>
+                    <input type="text" id="adminCustomNationality" name="customNationality" class="other-nationality-input hidden" placeholder="Specify Nationality">
+                </div>
+                <div class="form-group">
+                    <label for="adminGender">Gender</label>
+                    <select id="adminGender" name="gender">
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group hidden" id="customGenderGroup">
+                    <label for="adminCustomGender">Custom Gender</label>
+                    <input type="text" id="adminCustomGender" name="customGender" placeholder="Specify">
+                </div>
+                <!-- Row 7: Race, Religion -->
+                <div class="form-group half-width">
+                    <label for="adminRace">Race</label>
+                    <select id="adminRace" name="race" onchange="toggleOtherRace()">
+                        <option value="">Select</option>
+                        <option value="Sinhala">Sinhala</option>
+                        <option value="Tamil">Tamil</option>
+                        <option value="Catholic">Catholic</option>
+                        <option value="Muslim">Muslim</option>
+                        <option value="Malee">Malee</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="adminCustomRace" name="customRace" class="other-race-input hidden" placeholder="Specify Race">
+                </div>
+                <div class="form-group half-width">
+                    <label for="adminReligion">Religion</label>
+                    <select id="adminReligion" name="religion" onchange="toggleOtherReligion()">
+                        <option value="">Select</option>
+                        <option value="Buddhist">Buddhist</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Christian">Christian</option>
+                        <option value="Catholic">Catholic</option>
+                        <option value="Islam">Islam</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="adminCustomReligion" name="customReligion" class="other-religion-input hidden" placeholder="Specify Religion">
+                </div>
+                <!-- Row 8: Occupation -->
+                <div class="form-group half-width">
+                    <label for="adminOccupation">Occupation</label>
+                    <select id="adminOccupation" name="occupation" onchange="toggleOtherOccupation()">
+                        <option value="">Select</option>
+                        <option value="Employee">Employee</option>
+                        <option value="Business Owner">Business Owner</option>
+                        <option value="Student">Student</option>
+                        <option value="Retired">Retired</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="adminCustomOccupation" name="customOccupation" class="other-occupation-input hidden" placeholder="Specify Occupation">
+                </div>
+                <!-- Row 9: Highest Level of Education -->
+                <div class="form-group half-width">
+                    <label for="adminEducation">Highest Level of Education</label>
+                    <select id="adminEducation" name="education">
+                        <option value="">Select</option>
+                        <option value="No Education">No Education</option>
+                        <option value="Up to Grade 5">Up to Grade 5</option>
+                        <option value="O/L">O/L</option>
+                        <option value="A/L">A/L</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="Higher Diploma">Higher Diploma</option>
+                        <option value="BSc">BSc (Basic Degree)</option>
+                        <option value="MSc/MBA">MSc/MBA (Higher Degree)</option>
+                        <option value="PhD">PhD</option>
+                    </select>
+                </div>
+                <!-- Row 10: Monthly Income -->
+                <div class="form-group half-width">
+                    <label for="adminMonthlyIncome">Monthly Income</label>
+                    <select id="adminMonthlyIncome" name="monthlyIncome">
+                        <option value="">Select</option>
+                        <option value="0-49999">0 - 49,999</option>
+                        <option value="50000-99999">50,000 - 99,999</option>
+                        <option value="100000-149999">100,000 - 149,999</option>
+                        <option value="150000-300000">150,000 - 300,000</option>
+                        <option value="300000+">More than 300,000</option>
+                    </select>
+                </div>
+                <!-- Row 11: Source of Income -->
+                <div class="form-group half-width">
+                    <label for="adminSourceOfIncome">Source of Income</label>
+                    <select id="adminSourceOfIncome" name="sourceOfIncome" onchange="toggleNoIncomeReason()">
+                        <option value="">Select</option>
+                        <option value="Salary">Salary</option>
+                        <option value="Business">Business</option>
+                        <option value="Investments">Investments</option>
+                        <option value="No Income">No Income</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="adminNoIncomeReason" name="noIncomeReason" class="other-source-income-input hidden" placeholder="Specify Reason for No Income or Other Source">
+                </div>
+                <!-- Row 12: Dependents -->
+                <div class="form-group half-width">
+                    <label>Dependents</label>
+                    <div id="dependentsContainer">
+                        <div class="dependents-row visible">
+                            <select name="dependentRelationship1" onchange="toggleParentSubcategoryOrOther(this, 'dependentParentSubcategory1', 'dependentOtherRelationship1')">
+                                <option value="">Select</option>
+                                <option value="Parent">Parent</option>
+                                <option value="Sibling">Sibling</option>
+                                <option value="Spouse">Spouse</option>
+                                <option value="Child">Child</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <select name="dependentParentSubcategory1" class="parent-subcategory hidden">
+                                <option value="">Select Parent</option>
+                                <option value="Mother">Mother</option>
+                                <option value="Father">Father</option>
+                            </select>
+                            <input type="text" name="dependentOtherRelationship1" class="other-relationship-input hidden" placeholder="Specify Relationship">
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addDependentRow()">Add Dependent</button>
+                </div>
+                <!-- Row 13: Family Members -->
+                <div class="form-group half-width">
+                    <label>Family Members</label>
+                    <div id="familyContainer">
+                        <div class="family-row visible">
+                            <select name="familyRelationship1" onchange="toggleParentSubcategoryOrOther(this, 'familyParentSubcategory1', 'familyOtherRelationship1')">
+                                <option value="">Select</option>
+                                <option value="Parent">Parent</option>
+                                <option value="Sibling">Sibling</option>
+                                <option value="Spouse">Spouse</option>
+                                <option value="Child">Child</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <select name="familyParentSubcategory1" class="parent-subcategory hidden">
+                                <option value="">Select Parent</option>
+                                <option value="Mother">Mother</option>
+                                <option value="Father">Father</option>
+                            </select>
+                            <input type="text" name="familyOtherRelationship1" class="other-relationship-input hidden" placeholder="Specify Relationship">
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addFamilyRow()">Add Family Member</button>
+                </div>
+                <!-- Row 14: How Did You Know About Us -->
+                <div class="form-group half-width">
+                    <label for="adminHowDidYouKnow">How did you know about us?</label>
+                    <select id="adminHowDidYouKnow" name="howDidYouKnow" onchange="toggleOtherHowDidYouKnow()">
+                        <option value="">Select</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="Friend">Friend</option>
+                        <option value="Family">Family</option>
+                        <option value="Advertisement">Advertisement</option>
+                        <option value="HealthCare Professional">HealthCare Professional</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="adminHowDidYouKnowOther" name="howDidYouKnowOther" class="other-relationship-input hidden" placeholder="Specify Source">
+                </div>
+                <!-- Submit Button -->
+                <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Set registration number
+        document.getElementById('adminRegistrationNumber').value = `REG${Math.floor(1000 + Math.random() * 9000)}`;
+
+        // Social media details logic
+        const socialMediaCheckboxes = [{
+            checkboxId: 'whatsappCheckbox',
+            inputId: 'whatsappDetails'
+        }, {
+            checkboxId: 'facebookCheckbox',
+            inputId: 'facebookDetails'
+        }, {
+            checkboxId: 'instagramCheckbox',
+            inputId: 'instagramDetails'
+        }, {
+            checkboxId: 'youtubeCheckbox',
+            inputId: 'youtubeDetails'
+        }, {
+            checkboxId: 'twitterCheckbox',
+            inputId: 'twitterDetails'
+        }, {
+            checkboxId: 'otherCheckbox',
+            inputId: 'otherDetails'
+        }];
+
+        socialMediaCheckboxes.forEach(({
+            checkboxId,
+            inputId
+        }) => {
+            const checkbox = document.getElementById(checkboxId);
+            const input = document.getElementById(inputId);
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    input.classList.remove('hidden');
+                    input.classList.add('visible');
+                } else {
+                    input.classList.add('hidden');
+                    input.classList.remove('visible');
+                    input.value = '';
+                }
+            });
+        });
+
+        // Custom field logic for Gender
+        const genderSelect = document.getElementById('adminGender');
+        const customGenderGroup = document.getElementById('customGenderGroup');
+        const customGenderInput = document.getElementById('adminCustomGender');
+
+        // Initialize: hide custom gender group by default
+        customGenderGroup.classList.add('hidden');
+
+        genderSelect.addEventListener('change', () => {
+            if (genderSelect.value === 'Other') {
+                customGenderGroup.classList.remove('hidden');
+                customGenderGroup.classList.add('visible');
+            } else {
+                customGenderGroup.classList.add('hidden');
+                customGenderGroup.classList.remove('visible');
+                customGenderInput.value = '';
+            }
+        });
+
+        // Custom field logic for Civil Status
+        const civilStatusSelect = document.getElementById('adminCivilStatus');
+        const customCivilStatusInput = document.getElementById('adminCustomCivilStatus');
+
+        // Initialize: hide custom civil status input by default
+        customCivilStatusInput.classList.add('hidden');
+
+        function toggleOtherCivilStatus() {
+            if (civilStatusSelect.value === 'Other') {
+                customCivilStatusInput.classList.remove('hidden');
+                customCivilStatusInput.classList.add('visible');
+            } else {
+                customCivilStatusInput.classList.add('hidden');
+                customCivilStatusInput.classList.remove('visible');
+                customCivilStatusInput.value = '';
+            }
+        }
+
+        // Custom field logic for Nationality
+        const nationalitySelect = document.getElementById('adminNationality');
+        const customNationalityInput = document.getElementById('adminCustomNationality');
+
+        // Initialize: hide custom nationality input by default
+        customNationalityInput.classList.add('hidden');
+
+        function toggleOtherNationality() {
+            if (nationalitySelect.value === 'Non-Sri Lankan') {
+                customNationalityInput.classList.remove('hidden');
+                customNationalityInput.classList.add('visible');
+            } else {
+                customNationalityInput.classList.add('hidden');
+                customNationalityInput.classList.remove('visible');
+                customNationalityInput.value = '';
+            }
+        }
+
+        // Custom field logic for Race
+        const raceSelect = document.getElementById('adminRace');
+        const customRaceInput = document.getElementById('adminCustomRace');
+
+        // Initialize: hide custom race input by default
+        customRaceInput.classList.add('hidden');
+
+        function toggleOtherRace() {
+            if (raceSelect.value === 'Other') {
+                customRaceInput.classList.remove('hidden');
+                customRaceInput.classList.add('visible');
+            } else {
+                customRaceInput.classList.add('hidden');
+                customRaceInput.classList.remove('visible');
+                customRaceInput.value = '';
+            }
+        }
+
+        // Custom field logic for Religion
+        const religionSelect = document.getElementById('adminReligion');
+        const customReligionInput = document.getElementById('adminCustomReligion');
+
+        // Initialize: hide custom religion input by default
+        customReligionInput.classList.add('hidden');
+
+        function toggleOtherReligion() {
+            if (religionSelect.value === 'Other') {
+                customReligionInput.classList.remove('hidden');
+                customReligionInput.classList.add('visible');
+            } else {
+                customReligionInput.classList.add('hidden');
+                customReligionInput.classList.remove('visible');
+                customReligionInput.value = '';
+            }
+        }
+
+        // Custom field logic for Occupation
+        const occupationSelect = document.getElementById('adminOccupation');
+        const customOccupationInput = document.getElementById('adminCustomOccupation');
+
+        // Initialize: hide custom occupation input by default
+        customOccupationInput.classList.add('hidden');
+
+        function toggleOtherOccupation() {
+            if (occupationSelect.value === 'Other') {
+                customOccupationInput.classList.remove('hidden');
+                customOccupationInput.classList.add('visible');
+            } else {
+                customOccupationInput.classList.add('hidden');
+                customOccupationInput.classList.remove('visible');
+                customOccupationInput.value = '';
+            }
+        }
+
+        // Custom field logic for Source of Income
+        const sourceOfIncomeSelect = document.getElementById('adminSourceOfIncome');
+        const noIncomeReasonInput = document.getElementById('adminNoIncomeReason');
+
+        // Initialize: hide no income reason input by default
+        noIncomeReasonInput.classList.add('hidden');
+
+        function toggleNoIncomeReason() {
+            if (sourceOfIncomeSelect.value === 'No Income' || sourceOfIncomeSelect.value === 'Other') {
+                noIncomeReasonInput.classList.remove('hidden');
+                noIncomeReasonInput.classList.add('visible');
+            } else {
+                noIncomeReasonInput.classList.add('hidden');
+                noIncomeReasonInput.classList.remove('visible');
+                noIncomeReasonInput.value = '';
+            }
+        }
+
+        // Dynamic contact row addition
+        let contactCount = 1;
+
+        function addContactRow() {
+            contactCount++;
+            const contactContainer = document.getElementById('contactContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'contact-row';
+            newRow.innerHTML = `
+                <input type="tel" name="contactNumber${contactCount}" placeholder="Enter Contact Number">
+                <button type="button" class="remove-btn" onclick="removeRow(this)">Remove</button>
+            `;
+            contactContainer.appendChild(newRow);
+            // Trigger rise-up animation
+            setTimeout(() => {
+                newRow.classList.add('visible');
+            }, 10);
+        }
+
+        // Dynamic dependents row addition
+        let dependentCount = 1;
+
+        function addDependentRow() {
+            dependentCount++;
+            const dependentsContainer = document.getElementById('dependentsContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'dependents-row';
+            newRow.innerHTML = `
+                <select name="dependentRelationship${dependentCount}" onchange="toggleParentSubcategoryOrOther(this, 'dependentParentSubcategory${dependentCount}', 'dependentOtherRelationship${dependentCount}')">
+                    <option value="">Select</option>
+                    <option value="Parent">Parent</option>
+                    <option value="Sibling">Sibling</option>
+                    <option value="Spouse">Spouse</option>
+                    <option value="Child">Child</option>
+                    <option value="Other">Other</option>
+                </select>
+                <select name="dependentParentSubcategory${dependentCount}" class="parent-subcategory hidden">
+                    <option value="">Select Parent</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Father">Father</option>
+                </select>
+                <input type="text" name="dependentOtherRelationship${dependentCount}" class="other-relationship-input hidden" placeholder="Specify Relationship">
+                <button type="button" class="remove-btn" onclick="removeRow(this)">Remove</button>
+            `;
+            dependentsContainer.appendChild(newRow);
+            // Trigger rise-up animation
+            setTimeout(() => {
+                newRow.classList.add('visible');
+            }, 10);
+        }
+
+        // Dynamic family row addition
+        let familyCount = 1;
+
+        function addFamilyRow() {
+            familyCount++;
+            const familyContainer = document.getElementById('familyContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'family-row';
+            newRow.innerHTML = `
+                <select name="familyRelationship${familyCount}" onchange="toggleParentSubcategoryOrOther(this, 'familyParentSubcategory${familyCount}', 'familyOtherRelationship${familyCount}')">
+                    <option value="">Select</option>
+                    <option value="Parent">Parent</option>
+                    <option value="Sibling">Sibling</option>
+                    <option value="Spouse">Spouse</option>
+                    <option value="Child">Child</option>
+                    <option value="Other">Other</option>
+                </select>
+                <select name="familyParentSubcategory${familyCount}" class="parent-subcategory hidden">
+                    <option value="">Select Parent</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Father">Father</option>
+                </select>
+                <input type="text" name="familyOtherRelationship${familyCount}" class="other-relationship-input hidden" placeholder="Specify Relationship">
+                <button type="button" class="remove-btn" onclick="removeRow(this)">Remove</button>
+            `;
+            familyContainer.appendChild(newRow);
+            // Trigger rise-up animation
+            setTimeout(() => {
+                newRow.classList.add('visible');
+            }, 10);
+        }
+
+        // Toggle parent subcategory or other relationship input
+        function toggleParentSubcategoryOrOther(selectElement, parentSubcategoryId, otherInputId) {
+            const parentSubcategory = document.getElementsByName(parentSubcategoryId)[0];
+            const otherInput = document.getElementsByName(otherInputId)[0];
+            if (selectElement.value === 'Parent') {
+                parentSubcategory.classList.remove('hidden');
+                parentSubcategory.classList.add('visible');
+                otherInput.classList.add('hidden');
+                otherInput.classList.remove('visible');
+                otherInput.value = '';
+            } else if (selectElement.value === 'Other') {
+                otherInput.classList.remove('hidden');
+                otherInput.classList.add('visible');
+                parentSubcategory.classList.add('hidden');
+                parentSubcategory.classList.remove('visible');
+                parentSubcategory.value = '';
+            } else {
+                parentSubcategory.classList.add('hidden');
+                parentSubcategory.classList.remove('visible');
+                parentSubcategory.value = '';
+                otherInput.classList.add('hidden');
+                otherInput.classList.remove('visible');
+                otherInput.value = '';
+            }
+        }
+
+        // Toggle other how did you know input
+        function toggleOtherHowDidYouKnow() {
+            const select = document.getElementById('adminHowDidYouKnow');
+            const input = document.getElementById('adminHowDidYouKnowOther');
+            if (select.value === 'Other') {
+                input.classList.remove('hidden');
+                input.classList.add('visible');
+            } else {
+                input.classList.add('hidden');
+                input.classList.remove('visible');
+                input.value = '';
+            }
+        }
+
+        // Remove row
+        function removeRow(button) {
+            const row = button.parentElement;
+            row.classList.remove('visible');
+            setTimeout(() => {
+                row.remove();
+            }, 300); // Match animation duration
+        }
+
+        // Form submission
+        function submitForm() {
+            const formData = new FormData(document.getElementById('adminUserForm'));
+            const socialMediaDetails = {};
+            socialMediaCheckboxes.forEach(({
+                inputId
+            }) => {
+                const input = document.getElementById(inputId);
+                if (input.value) {
+                    socialMediaDetails[input.name] = input.value;
+                }
+            });
+            const contactData = [];
+            document.querySelectorAll('#contactContainer .contact-row').forEach(row => {
+                const contactNumber = row.querySelector('input[name*="contactNumber"]').value;
+                if (contactNumber) {
+                    contactData.push({
+                        number: contactNumber
+                    });
+                }
+            });
+            const dependentsData = [];
+            document.querySelectorAll('#dependentsContainer .dependents-row').forEach(row => {
+                const relationshipSelect = row.querySelector('select[name*="dependentRelationship"]').value;
+                const parentSubcategory = row.querySelector('select[name*="dependentParentSubcategory"]').value;
+                const otherRelationship = row.querySelector('input[name*="dependentOtherRelationship"]').value;
+                if (relationshipSelect) {
+                    let relationship = relationshipSelect;
+                    if (relationshipSelect === 'Parent' && parentSubcategory) {
+                        relationship = parentSubcategory;
+                    } else if (relationshipSelect === 'Other' && otherRelationship) {
+                        relationship = otherRelationship;
+                    }
+                    dependentsData.push({
+                        relationship
+                    });
+                }
+            });
+            const familyData = [];
+            document.querySelectorAll('#familyContainer .family-row').forEach(row => {
+                const relationshipSelect = row.querySelector('select[name*="familyRelationship"]').value;
+                const parentSubcategory = row.querySelector('select[name*="familyParentSubcategory"]').value;
+                const otherRelationship = row.querySelector('input[name*="familyOtherRelationship"]').value;
+                if (relationshipSelect) {
+                    let relationship = relationshipSelect;
+                    if (relationshipSelect === 'Parent' && parentSubcategory) {
+                        relationship = parentSubcategory;
+                    } else if (relationshipSelect === 'Other' && otherRelationship) {
+                        relationship = otherRelationship;
+                    }
+                    familyData.push({
+                        relationship
+                    });
+                }
+            });
+            const civilStatus = {
+                status: document.getElementById('adminCivilStatus').value,
+                customStatus: document.getElementById('adminCustomCivilStatus').value
+            };
+            const nationality = {
+                status: document.getElementById('adminNationality').value,
+                customNationality: document.getElementById('adminCustomNationality').value
+            };
+            const race = {
+                status: document.getElementById('adminRace').value,
+                customRace: document.getElementById('adminCustomRace').value
+            };
+            const religion = {
+                status: document.getElementById('adminReligion').value,
+                customReligion: document.getElementById('adminCustomReligion').value
+            };
+            const occupation = {
+                status: document.getElementById('adminOccupation').value,
+                customOccupation: document.getElementById('adminCustomOccupation').value
+            };
+            const sourceOfIncome = {
+                source: document.getElementById('adminSourceOfIncome').value,
+                noIncomeReason: document.getElementById('adminNoIncomeReason').value
+            };
+            console.log('Form Data:', Object.fromEntries(formData));
+            console.log('Social Media Details:', socialMediaDetails);
+            console.log('Contact Numbers:', contactData);
+            console.log('Dependents:', dependentsData);
+            console.log('Family Members:', familyData);
+            console.log('Civil Status:', civilStatus.status === 'Other' ? civilStatus.customStatus : civilStatus.status);
+            console.log('Nationality:', nationality.status === 'Non-Sri Lankan' ? nationality.customNationality : nationality.status);
+            console.log('Race:', race.status === 'Other' ? race.customRace : race.status);
+            console.log('Religion:', religion.status === 'Other' ? religion.customReligion : religion.status);
+            console.log('Occupation:', occupation.status === 'Other' ? occupation.customOccupation : occupation.status);
+            console.log('Source of Income:', sourceOfIncome.source === 'No Income' || sourceOfIncome.source === 'Other' ? sourceOfIncome.noIncomeReason : sourceOfIncome.source);
+            console.log('How Did You Know About Us:', document.getElementById('adminHowDidYouKnow').value === 'Other' ? document.getElementById('adminHowDidYouKnowOther').value : document.getElementById('adminHowDidYouKnow').value);
+            alert('Form Submitted!');
+        }
+    </script>
+</body>
+
+</html>

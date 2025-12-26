@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical History Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 0.5rem;
+        }
+        
+        .full-width {
+            grid-column: span 3;
+        }
+        
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 0.2rem;
+        }
+        
+        input,
+        select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            background: #f9fafb;
+        }
+        
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 4px rgba(59, 130, 246, 0.3);
+            background: white;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+            background: #f9fafb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        th,
+        td {
+            border: 1px solid #e5e7eb;
+            padding: 0.6rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        
+        .submit-btn {
+            grid-column: span 3;
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to right, #2563eb, #db2777);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Medical History Form</h1>
+        <form id="medicalHistoryForm">
+            <div class="form-grid">
+                <!-- Admitted Past Diseases Condition -->
+                <div class="form-group half-width">
+                    <label for="pastDiseases">Admitted Past Diseases</label>
+                    <select id="pastDiseases" name="pastDiseases">
+                        <option value="">Select</option>
+                        <option value="Diabetes">Diabetes</option>
+                        <option value="Hypertension">Hypertension</option>
+                        <option value="Asthma">Asthma</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group half-width">
+                    <label for="customPastDiseases">Custom Past Disease</label>
+                    <input type="text" id="customPastDiseases" name="customPastDiseases" class="hidden" placeholder="Specify">
+                </div>
+                <br>
+                <!-- Chronic Disease Conditions -->
+                <div class="form-group half-width">
+                    <label for="chronicDiseases">Chronic Diseases</label>
+                    <select id="chronicDiseases" name="chronicDiseases">
+                        <option value="">Select</option>
+                        <option value="Heart Disease">Heart Disease</option>
+                        <option value="Cancer">Cancer</option>
+                        <option value="Arthritis">Arthritis</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group half-width">
+                    <label for="customChronicDiseases">Custom Chronic Disease</label>
+                    <input type="text" id="customChronicDiseases" name="customChronicDiseases" class="hidden" placeholder="Specify">
+                </div>
+                <br>
+
+                <!-- Past Medical Conditions -->
+
+                <div class="form-group half-width">
+
+                    <label for="pastMedicalConditions">Past Medical Conditions</label>
+                    <select id="pastMedicalConditions" name="pastMedicalConditions">
+                        <option value="">Select</option>
+                        <option value="Anemia">Anemia</option>
+                        <option value="Thyroid Disorder">Thyroid Disorder</option>
+                        <option value="Allergies">Allergies</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group half-width">
+                    <label for="customPastMedicalConditions">Custom Medical Condition</label>
+                    <input type="text" id="customPastMedicalConditions" name="customPastMedicalConditions" class="hidden" placeholder="Specify">
+                </div>
+                <br>
+                <!-- Past Surgical Conditions -->
+                <div class="form-group half-width">
+                    <label for="pastSurgicalConditions">Past Surgical Conditions</label>
+                    <select id="pastSurgicalConditions" name="pastSurgicalConditions">
+                        <option value="">Select</option>
+                        <option value="Appendectomy">Appendectomy</option>
+                        <option value="Knee Surgery">Knee Surgery</option>
+                        <option value="Heart Surgery">Heart Surgery</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group half-width">
+                    <label for="customPastSurgicalConditions">Custom Surgical Condition</label>
+                    <input type="text" id="customPastSurgicalConditions" name="customPastSurgicalConditions" class="hidden" placeholder="Specify">
+                </div>
+
+                <!-- Family Medical History -->
+                <div class="form-group full-width">
+                    <label>Family Medical History</label>
+                    <table id="familyMedicalHistory">
+                        <thead>
+                            <tr>
+                                <th>Family Member</th>
+                                <th>Diabetes</th>
+                                <th>Hypertension</th>
+                                <th>Cancer</th>
+                                <th>Heart Disease</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Father</td>
+                                <td><input type="checkbox" name="father_diabetes"></td>
+                                <td><input type="checkbox" name="father_hypertension"></td>
+                                <td><input type="checkbox" name="father_cancer"></td>
+                                <td><input type="checkbox" name="father_heartDisease"></td>
+                            </tr>
+                            <tr>
+                                <td>Mother</td>
+                                <td><input type="checkbox" name="mother_diabetes"></td>
+                                <td><input type="checkbox" name="mother_hypertension"></td>
+                                <td><input type="checkbox" name="mother_cancer"></td>
+                                <td><input type="checkbox" name="mother_heartDisease"></td>
+                            </tr>
+                            <tr>
+                                <td>Sibling</td>
+                                <td><input type="checkbox" name="sibling_diabetes"></td>
+                                <td><input type="checkbox" name="sibling_hypertension"></td>
+                                <td><input type="checkbox" name="sibling_cancer"></td>
+                                <td><input type="checkbox" name="sibling_heartDisease"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Alcohol Intake -->
+                <div class="form-group full-width">
+                    <label>Alcohol Intake</label>
+                    <table id="alcoholIntake">
+                        <thead>
+                            <tr>
+                                <th>Frequency</th>
+                                <th>Check</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Never</td>
+                                <td><input type="checkbox" name="alcohol_never"></td>
+                            </tr>
+                            <tr>
+                                <td>Occasionally (1-2 times/month)</td>
+                                <td><input type="checkbox" name="alcohol_occasionally"></td>
+                            </tr>
+                            <tr>
+                                <td>Regularly (1-2 times/week)</td>
+                                <td><input type="checkbox" name="alcohol_regularly"></td>
+                            </tr>
+                            <tr>
+                                <td>Daily</td>
+                                <td><input type="checkbox" name="alcohol_daily"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Tobacco Smoking Level -->
+                <div class="form-group full-width">
+                    <label>Tobacco Smoking Level</label>
+                    <table id="tobaccoSmoking">
+                        <thead>
+                            <tr>
+                                <th>Frequency</th>
+                                <th>Check</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Never</td>
+                                <td><input type="checkbox" name="smoking_never"></td>
+                            </tr>
+                            <tr>
+                                <td>Light (1-5 cigarettes/day)</td>
+                                <td><input type="checkbox" name="smoking_light"></td>
+                            </tr>
+                            <tr>
+                                <td>Moderate (6-10 cigarettes/day)</td>
+                                <td><input type="checkbox" name="smoking_moderate"></td>
+                            </tr>
+                            <tr>
+                                <td>Heavy (11+ cigarettes/day)</td>
+                                <td><input type="checkbox" name="smoking_heavy"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Custom field logic for dropdowns
+        const customFields = [{
+            selectId: 'pastDiseases',
+            inputId: 'customPastDiseases'
+        }, {
+            selectId: 'chronicDiseases',
+            inputId: 'customChronicDiseases'
+        }, {
+            selectId: 'pastMedicalConditions',
+            inputId: 'customPastMedicalConditions'
+        }, {
+            selectId: 'pastSurgicalConditions',
+            inputId: 'customPastSurgicalConditions'
+        }];
+
+        customFields.forEach(({
+            selectId,
+            inputId
+        }) => {
+            const select = document.getElementById(selectId);
+            const input = document.getElementById(inputId);
+            select.addEventListener('change', () => {
+                input.classList.toggle('hidden', select.value !== 'Other');
+                if (select.value !== 'Other') {
+                    input.value = '';
+                }
+            });
+        });
+
+        // Form submission
+        function submitForm() {
+            const formData = new FormData(document.getElementById('medicalHistoryForm'));
+            const familyMedicalHistory = {
+                father: {
+                    diabetes: document.querySelector('input[name="father_diabetes"]').checked,
+                    hypertension: document.querySelector('input[name="father_hypertension"]').checked,
+                    cancer: document.querySelector('input[name="father_cancer"]').checked,
+                    heartDisease: document.querySelector('input[name="father_heartDisease"]').checked
+                },
+                mother: {
+                    diabetes: document.querySelector('input[name="mother_diabetes"]').checked,
+                    hypertension: document.querySelector('input[name="mother_hypertension"]').checked,
+                    cancer: document.querySelector('input[name="mother_cancer"]').checked,
+                    heartDisease: document.querySelector('input[name="mother_heartDisease"]').checked
+                },
+                sibling: {
+                    diabetes: document.querySelector('input[name="sibling_diabetes"]').checked,
+                    hypertension: document.querySelector('input[name="sibling_hypertension"]').checked,
+                    cancer: document.querySelector('input[name="sibling_cancer"]').checked,
+                    heartDisease: document.querySelector('input[name="sibling_heartDisease"]').checked
+                }
+            };
+            const alcoholIntake = {
+                never: document.querySelector('input[name="alcohol_never"]').checked,
+                occasionally: document.querySelector('input[name="alcohol_occasionally"]').checked,
+                regularly: document.querySelector('input[name="alcohol_regularly"]').checked,
+                daily: document.querySelector('input[name="alcohol_daily"]').checked
+            };
+            const tobaccoSmoking = {
+                never: document.querySelector('input[name="smoking_never"]').checked,
+                light: document.querySelector('input[name="smoking_light"]').checked,
+                moderate: document.querySelector('input[name="smoking_moderate"]').checked,
+                heavy: document.querySelector('input[name="smoking_heavy"]').checked
+            };
+            console.log('Form Data:', Object.fromEntries(formData));
+            console.log('Family Medical History:', familyMedicalHistory);
+            console.log('Alcohol Intake:', alcoholIntake);
+            console.log('Tobacco Smoking:', tobaccoSmoking);
+            alert('Medical History Form Submitted!');
+        }
+    </script>
+</body>
+
+</html>

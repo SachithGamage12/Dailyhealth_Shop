@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Conditions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .main-container {
+            display: flex;
+            flex-direction: row;
+            max-width: 1400px;
+            margin: 1rem auto;
+            gap: 1rem;
+        }
+        
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 800px;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            /* One column for one item per row */
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 0.5rem;
+        }
+        
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 0.2rem;
+        }
+        
+        input,
+        select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            background: #f9fafb;
+        }
+        
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 4px rgba(59, 130, 246, 0.3);
+            background: white;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to right, #2563eb, #db2777);
+            transform: translateY(-2px);
+        }
+        
+        .image-container {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .condition-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .image-placeholder {
+            font-size: 1rem;
+            color: #6b7280;
+        }
+        
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .container,
+            .image-container {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="container">
+            <h1>Clinical Conditions</h1>
+            <form id="clinicalConditionsForm">
+                <div class="form-grid">
+                    <!-- Skin Condition -->
+                    <div class="form-group">
+                        <label for="skinCondition">Skin</label>
+                        <select id="skinCondition" name="skinCondition">
+                            <option value="">Select</option>
+                            <option value="Eczema">Eczema</option>
+                            <option value="Psoriasis">Psoriasis</option>
+                            <option value="Acne">Acne</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden" id="customSkinGroup">
+                        <label for="customSkinCondition">Custom Skin Condition</label>
+                        <input type="text" id="customSkinCondition" name="customSkinCondition" placeholder="Specify">
+                    </div>
+                    <!-- Eye Condition -->
+                    <div class="form-group">
+                        <label for="eyeCondition">Eye</label>
+                        <select id="eyeCondition" name="eyeCondition">
+                            <option value="">Select</option>
+                            <option value="Cataract">Cataract</option>
+                            <option value="Glaucoma">Glaucoma</option>
+                            <option value="Conjunctivitis">Conjunctivitis</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden" id="customEyeGroup">
+                        <label for="customEyeCondition">Custom Eye Condition</label>
+                        <input type="text" id="customEyeCondition" name="customEyeCondition" placeholder="Specify">
+                    </div>
+                    <!-- Hair Condition -->
+                    <div class="form-group">
+                        <label for="hairCondition">Hair</label>
+                        <select id="hairCondition" name="hairCondition">
+                            <option value="">Select</option>
+                            <option value="Alopecia">Alopecia</option>
+                            <option value="Dandruff">Dandruff</option>
+                            <option value="Hair Loss">Hair Loss</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden" id="customHairGroup">
+                        <label for="customHairCondition">Custom Hair Condition</label>
+                        <input type="text" id="customHairCondition" name="customHairCondition" placeholder="Specify">
+                    </div>
+                    <!-- Tongue, Mouth, Lips, Face Condition -->
+                    <div class="form-group">
+                        <label for="tongueMouthLipsFace">Tongue, Mouth, Lips, Face</label>
+                        <select id="tongueMouthLipsFace" name="tongueMouthLipsFace">
+                            <option value="">Select</option>
+                            <option value="Oral Thrush">Oral Thrush</option>
+                            <option value="Cold Sores">Cold Sores</option>
+                            <option value="Gingivitis">Gingivitis</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden" id="customTongueMouthLipsFaceGroup">
+                        <label for="customTongueMouthLipsFace">Custom Condition</label>
+                        <input type="text" id="customTongueMouthLipsFace" name="customTongueMouthLipsFace" placeholder="Specify">
+                    </div>
+                    <!-- Nails Condition -->
+                    <div class="form-group">
+                        <label for="nailsCondition">Nails</label>
+                        <select id="nailsCondition" name="nailsCondition">
+                            <option value="">Select</option>
+                            <option value="Fungal Infection">Fungal Infection</option>
+                            <option value="Brittle Nails">Brittle Nails</option>
+                            <option value="Discoloration">Discoloration</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden" id="customNailsGroup">
+                        <label for="customNailsCondition">Custom Nails Condition</label>
+                        <input type="text" id="customNailsCondition" name="customNailsCondition" placeholder="Specify">
+                    </div>
+                    <!-- SFT Thigh -->
+                    <div class="form-group">
+                        <label for="sftThigh">SFT Thigh (mm)</label>
+                        <select id="sftThigh" name="sftThigh">
+                            <option value="">Select</option>
+                            <option value="10-15">10-15 mm</option>
+                            <option value="16-20">16-20 mm</option>
+                            <option value="21-25">21-25 mm</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden" id="customSftThighGroup">
+                        <label for="customSftThigh">Custom SFT Thigh (mm)</label>
+                        <input type="text" id="customSftThigh" name="customSftThigh" placeholder="Specify">
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="image-container">
+            <h2>Condition Image</h2>
+            <div id="conditionImage" class="image-placeholder">Click a condition to view image</div>
+        </div>
+    </div>
+
+    <script>
+        // Mapping of conditions to image URLs (placeholder URLs)
+        const conditionImages = {
+            'Eczema': '../Eczema.webp',
+            'Psoriasis': 'https://via.placeholder.com/300x200?text=Psoriasis',
+            'Acne': 'https://via.placeholder.com/300x200?text=Acne',
+            'Cataract': '../Cataract.webp',
+            'Glaucoma': 'https://via.placeholder.com/300x200?text=Glaucoma',
+            'Conjunctivitis': 'https://via.placeholder.com/300x200?text=Conjunctivitis',
+            'Alopecia': 'https://via.placeholder.com/300x200?text=Alopecia',
+            'Dandruff': 'https://via.placeholder.com/300x200?text=Dandruff',
+            'Hair Loss': 'https://via.placeholder.com/300x200?text=Hair+Loss',
+            'Oral Thrush': 'https://via.placeholder.com/300x200?text=Oral+Thrush',
+            'Cold Sores': 'https://via.placeholder.com/300x200?text=Cold+Sores',
+            'Gingivitis': 'https://via.placeholder.com/300x200?text=Gingivitis',
+            'Fungal Infection': 'https://via.placeholder.com/300x200?text=Fungal+Infection',
+            'Brittle Nails': 'https://via.placeholder.com/300x200?text=Brittle+Nails',
+            'Discoloration': 'https://via.placeholder.com/300x200?text=Discoloration',
+            '10-15': 'https://via.placeholder.com/300x200?text=SFT+10-15mm',
+            '16-20': 'https://via.placeholder.com/300x200?text=SFT+16-20mm',
+            '21-25': 'https://via.placeholder.com/300x200?text=SFT+21-25mm'
+        };
+
+        // Custom field logic for dropdowns
+        const customFields = [{
+            selectId: 'skinCondition',
+            groupId: 'customSkinGroup'
+        }, {
+            selectId: 'eyeCondition',
+            groupId: 'customEyeGroup'
+        }, {
+            selectId: 'hairCondition',
+            groupId: 'customHairGroup'
+        }, {
+            selectId: 'tongueMouthLipsFace',
+            groupId: 'customTongueMouthLipsFaceGroup'
+        }, {
+            selectId: 'nailsCondition',
+            groupId: 'customNailsGroup'
+        }, {
+            selectId: 'sftThigh',
+            groupId: 'customSftThighGroup'
+        }];
+
+        customFields.forEach(({
+            selectId,
+            groupId
+        }) => {
+            const select = document.getElementById(selectId);
+            const group = document.getElementById(groupId);
+            const input = group.querySelector('input');
+            select.addEventListener('change', () => {
+                group.classList.toggle('hidden', select.value !== 'Other');
+                if (select.value !== 'Other') {
+                    input.value = '';
+                }
+            });
+            // Add click event to show image only on click
+            select.addEventListener('click', (e) => {
+                const selectedValue = select.value;
+                if (selectedValue && selectedValue !== 'Other' && conditionImages[selectedValue]) {
+                    updateImage(selectedValue);
+                } else {
+                    updateImage('');
+                }
+            });
+        });
+
+        // Function to update the image based on clicked condition
+        function updateImage(condition) {
+            const imageContainer = document.getElementById('conditionImage');
+            if (condition && conditionImages[condition]) {
+                imageContainer.innerHTML = `<img src="${conditionImages[condition]}" alt="${condition}" class="condition-image">`;
+            } else {
+                imageContainer.innerHTML = '<div class="image-placeholder">Click a condition to view image</div>';
+            }
+        }
+
+        // Form submission
+        function submitForm() {
+            const formData = new FormData(document.getElementById('clinicalConditionsForm'));
+            const clinicalData = Object.fromEntries(formData);
+            console.log('Clinical Conditions Data:', clinicalData);
+            alert('Clinical Conditions Submitted!');
+        }
+    </script>
+</body>
+
+</html>

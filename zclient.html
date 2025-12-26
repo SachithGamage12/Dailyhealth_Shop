@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Registration Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+         :root {
+            --primary: #4f46e5;
+            --secondary: #1e40af;
+            --accent: #ec4899;
+            --light: #f9fafb;
+            --dark: #1f2937;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0e7ff, #c3e8ff);
+            background-image: url('https://images.unsplash.com/photo-1516321310767-0a361e09c0c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 960px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .container:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+            animation: rainbow 6s linear infinite;
+            background-size: 300% 100%;
+        }
+        
+        @keyframes rainbow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        h1 {
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 2rem 2.5rem;
+            position: relative;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #e5e7eb;
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+        
+        .progress-step {
+            width: 2.25rem;
+            height: 2.25rem;
+            background: #e5e7eb;
+            color: #6b7280;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            border: 2px solid white;
+        }
+        
+        .progress-step.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            transform: scale(1.15);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-step.completed {
+            background: var(--success);
+            color: white;
+        }
+        
+        .progress-step.completed::after {
+            content: '✓';
+        }
+        
+        .progress-step span {
+            position: absolute;
+            top: 100%;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--dark);
+            white-space: nowrap;
+        }
+        
+        .step {
+            display: none;
+            padding: 0 1.5rem 2rem;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+            position: relative;
+            background: white;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .full-width {
+            grid-column: span 2;
+        }
+        
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            background: #f9fafb;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+            height: 44px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            height: auto;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            background: white;
+        }
+        
+        input:disabled,
+        input[disabled] {
+            background: #e5e7eb;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        .error-message {
+            color: var(--danger);
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        
+        .error-message.active {
+            display: block;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .checkbox-group input {
+            width: 1.25rem;
+            height: 1.25rem;
+            accent-color: var(--primary);
+        }
+        
+        .checkbox-group label {
+            font-size: 0.875rem;
+            color: var(--dark);
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        
+        .social-media-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: rgba(79, 70, 229, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px dashed rgba(79, 70, 229, 0.2);
+        }
+        
+        .social-media-item {
+            flex: 1;
+            min-width: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .social-media-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--dark);
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: white;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .social-media-group label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-media-input {
+            display: none;
+            margin-top: 0.5rem;
+            height: 44px;
+        }
+        
+        .social-media-input.active {
+            display: block;
+        }
+        
+        .dynamic-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 80px;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .dynamic-row.first-row {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .dynamic-row select,
+        .dynamic-row input[type="text"],
+        .dynamic-row input[type="tel"] {
+            height: 44px;
+        }
+        
+        .remove-btn {
+            padding: 0.5rem;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .remove-btn:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+        
+        .add-btn {
+            padding: 0.75rem 1.25rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        
+        .add-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .nav-btn,
+        .submit-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow);
+        }
+        
+        .nav-btn {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .nav-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.4s;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .floating-label {
+            position: absolute;
+            top: -8px;
+            left: 12px;
+            background: white;
+            padding: 0 6px;
+            font-size: 0.75rem;
+            color: var(--primary);
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+        
+        input:focus+label.floating-label,
+        select:focus+label.floating-label,
+        textarea:focus+label.floating-label,
+        input:not(:placeholder-shown)+label.floating-label,
+        select:not(:invalid)+label.floating-label,
+        textarea:not(:placeholder-shown)+label.floating-label {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+        
+        .confirmation-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 100;
+            max-width: 500px;
+            width: 90%;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0;
+        }
+        
+        .confirmation-message.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        
+        .confirmation-message h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .confirmation-message p {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-size: 0.875rem;
+        }
+        
+        .confirmation-message .checkmark {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(79, 70, 229, 0.1);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .confirmation-message .checkmark::before {
+            content: '';
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(79, 70, 229, 0.2);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            70% {
+                transform: scale(1.1);
+                opacity: 0.2;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+        }
+        
+        .confirmation-message .checkmark svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--primary);
+            z-index: 2;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 99;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .container {
+                max-width: 100%;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            .dynamic-row {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto;
+            }
+            .dynamic-row.first-row {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+            }
+            .dynamic-row select,
+            .dynamic-row input[type="text"],
+            .dynamic-row input[type="tel"],
+            .dynamic-row .remove-btn {
+                grid-column: 1 / -1;
+                width: 100%;
+                height: 44px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .progress-bar {
+                gap: 0.5rem;
+            }
+            .progress-step {
+                width: 2rem;
+                height: 2rem;
+                font-size: 0.75rem;
+            }
+            .progress-step span {
+                font-size: 0.65rem;
+            }
+            .social-media-item {
+                min-width: 100%;
+            }
+            .nav-btn,
+            .submit-btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.875rem;
+            }
+            .form-group {
+                padding: 0.75rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.25rem;
+            }
+            .progress-step {
+                width: 1.75rem;
+                height: 1.75rem;
+            }
+            .progress-step span {
+                font-size: 0.6rem;
+            }
+            .form-group {
+                padding: 0.5rem;
+            }
+            input,
+            select,
+            textarea {
+                font-size: 0.85rem;
+            }
+            .add-btn,
+            .remove-btn {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container animate__animated animate__fadeInUp">
+        <h1>Client Registration</h1>
+        <div class="progress-bar">
+            <div class="progress-step active"><span>Basic Info</span>1</div>
+            <div class="progress-step"><span>Address</span>2</div>
+            <div class="progress-step"><span>Personal</span>3</div>
+            <div class="progress-step"><span>Contact</span>4</div>
+            <div class="progress-step"><span>Financial</span>5</div>
+            <div class="progress-step"><span>Family</span>6</div>
+            <div class="progress-step"><span>Admission</span>7</div>
+        </div>
+        <form id="clientForm">
+            <!-- Step 1: Basic Info -->
+            <div class="step active" data-step="1">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="clientRegistrationDate">Registration Date</label>
+                        <input type="text" id="clientRegistrationDate" value="2025-09-22" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientRegistrationNumber">Registration Number</label>
+                        <input type="text" id="clientRegistrationNumber" value="" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientNameWithInitials">Name with Initials *</label>
+                        <input type="text" id="clientNameWithInitials" name="nameWithInitials" required>
+                        <label class="floating-label">Name with Initials</label>
+                        <span class="error-message">This field is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientPreferredName">Preferred Name</label>
+                        <input type="text" id="clientPreferredName" name="preferredName">
+                        <label class="floating-label">Preferred Name</label>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn hidden">Previous</button>
+                    <button type="button" class="nav-btn" onclick="nextStep(1)">Next</button>
+                </div>
+            </div>
+            <!-- Step 2: Address Details -->
+            <div class="step" data-step="2">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="clientPermanentAddress">Permanent Address *</label>
+                        <textarea id="clientPermanentAddress" name="permanentAddress" required></textarea>
+                        <label class="floating-label">Permanent Address</label>
+                        <span class="error-message">This field is required</span>
+                    </div>
+                    <div class="form-group half-width">
+                        <label for="adminAreaOfLiving">Area of Living</label>
+                        <select id="adminAreaOfLiving" name="areaOfLiving">
+        <option value="">Select</option>
+        <!-- Colombo District -->
+        <option value="Colombo">Colombo</option>
+        <option value="Kolonnawa">Kolonnawa</option>
+        <option value="Kaduwela">Kaduwela</option>
+        <option value="Homagama">Homagama</option>
+        <option value="Seethawaka (Hanwella)">Seethawaka (Hanwella)</option>
+        <option value="Padukka">Padukka</option>
+        <option value="Maharagama">Maharagama</option>
+        <option value="Sri Jayawardanapura Kotte">Sri Jayawardanapura Kotte</option>
+        <option value="Thimbirigasyaya">Thimbirigasyaya</option>
+        <option value="Dehiwala">Dehiwala</option>
+        <option value="Ratmalana">Ratmalana</option>
+        <option value="Moratuwa">Moratuwa</option>
+        <option value="Kesbewa">Kesbewa</option>
+        <!-- Gampaha District -->
+        <option value="Negombo">Negombo</option>
+        <option value="Katana">Katana</option>
+        <option value="Divulapitiya">Divulapitiya</option>
+        <option value="Mirigama">Mirigama</option>
+        <option value="Minuwangoda">Minuwangoda</option>
+        <option value="Wattala">Wattala</option>
+        <option value="Ja-Ela">Ja-Ela</option>
+        <option value="Gampaha">Gampaha</option>
+        <option value="Attanagalla">Attanagalla</option>
+        <option value="Dompe">Dompe</option>
+        <option value="Mahara">Mahara</option>
+        <option value="Kelaniya">Kelaniya</option>
+        <option value="Biyagama">Biyagama</option>
+        <!-- Kalutara District -->
+        <option value="Panadura">Panadura</option>
+        <option value="Bandaragama">Bandaragama</option>
+        <option value="Horana">Horana</option>
+        <option value="Ingiriya">Ingiriya</option>
+        <option value="Bulathsinhala">Bulathsinhala</option>
+        <option value="Madurawala">Madurawala</option>
+        <option value="Millaniya">Millaniya</option>
+        <option value="Kalutara">Kalutara</option>
+        <option value="Beruwala">Beruwala</option>
+        <option value="Dodangoda">Dodangoda</option>
+        <option value="Mathugama">Mathugama</option>
+        <option value="Agalawatta">Agalawatta</option>
+        <option value="Palindanuwara">Palindanuwara</option>
+        <option value="Walallavita">Walallavita</option>
+        <!-- Kandy District -->
+        <option value="Thumpane">Thumpane</option>
+        <option value="Pujapitiya">Pujapitiya</option>
+        <option value="Akurana">Akurana</option>
+        <option value="Pathadumbara">Pathadumbara</option>
+        <option value="Panvila">Panvila</option>
+        <option value="Udadumbara">Udadumbara</option>
+        <option value="Minipe">Minipe</option>
+        <option value="Medadumbara">Medadumbara</option>
+        <option value="Kundasale">Kundasale</option>
+        <option value="Kandy Four Gravets & Gangawata Korale">Kandy Four Gravets & Gangawata Korale</option>
+        <option value="Harispattuwa">Harispattuwa</option>
+        <option value="Hatharaliyadda">Hatharaliyadda</option>
+        <option value="Yatinuwara">Yatinuwara</option>
+        <option value="Udunuwara">Udunuwara</option>
+        <option value="Doluwa">Doluwa</option>
+        <option value="Pathahewaheta">Pathahewaheta</option>
+        <option value="Deltota">Deltota</option>
+        <option value="Udapalatha">Udapalatha</option>
+        <option value="Ganga Ihala Korale">Ganga Ihala Korale</option>
+        <option value="Pasbage Korale">Pasbage Korale</option>
+        <!-- Matale District -->
+        <option value="Galewela">Galewela</option>
+        <option value="Dambulla">Dambulla</option>
+        <option value="Naula">Naula</option>
+        <option value="Pallepola">Pallepola</option>
+        <option value="Yatawatta">Yatawatta</option>
+        <option value="Matale">Matale</option>
+        <option value="Ambanganga Korale">Ambanganga Korale</option>
+        <option value="Laggala-Pallegama">Laggala-Pallegama</option>
+        <option value="Wilgamuwa">Wilgamuwa</option>
+        <option value="Rattota">Rattota</option>
+        <option value="Ukuwela">Ukuwela</option>
+        <!-- Nuwara Eliya District -->
+        <option value="Kothmale">Kothmale</option>
+        <option value="Hanguranketha">Hanguranketha</option>
+        <option value="Walapane">Walapane</option>
+        <option value="Nuwara Eliya">Nuwara Eliya</option>
+        <option value="Ambagamuwa">Ambagamuwa</option>
+        <!-- Galle District -->
+        <option value="Bentota">Bentota</option>
+        <option value="Balapitiya">Balapitiya</option>
+        <option value="Karandeniya">Karandeniya</option>
+        <option value="Elpitiya">Elpitiya</option>
+        <option value="Niyagama">Niyagama</option>
+        <option value="Thawalama">Thawalama</option>
+        <option value="Neluwa">Neluwa</option>
+        <option value="Nagoda">Nagoda</option>
+        <option value="Baddegama">Baddegama</option>
+        <option value="Welivitiya-Divithura">Welivitiya-Divithura</option>
+        <option value="Ambalangoda">Ambalangoda</option>
+        <option value="Gonapeenuwala">Gonapeenuwala</option>
+        <option value="Hikkaduwa">Hikkaduwa</option>
+        <option value="Galle Four Gravets">Galle Four Gravets</option>
+        <option value="Bope-Poddala">Bope-Poddala</option>
+        <option value="Akmeemana">Akmeemana</option>
+        <option value="Yakkalamulla">Yakkalamulla</option>
+        <option value="Imaduwa">Imaduwa</option>
+        <option value="Habaraduwa">Habaraduwa</option>
+        <!-- Matara District -->
+        <option value="Pitabeddara">Pitabeddara</option>
+        <option value="Kotapola">Kotapola</option>
+        <option value="Pasgoda">Pasgoda</option>
+        <option value="Mulatiyana">Mulatiyana</option>
+        <option value="Athuraliya">Athuraliya</option>
+        <option value="Akuressa">Akuressa</option>
+        <option value="Welipitiya">Welipitiya</option>
+        <option value="Malimbada">Malimbada</option>
+        <option value="Kamburupitiya">Kamburupitiya</option>
+        <option value="Hakmana">Hakmana</option>
+        <option value="Kirinda Puhulwella">Kirinda Puhulwella</option>
+        <option value="Thihagoda">Thihagoda</option>
+        <option value="Weligama">Weligama</option>
+        <option value="Matara Four Gravets">Matara Four Gravets</option>
+        <option value="Devinuwara">Devinuwara</option>
+        <option value="Dickwella">Dickwella</option>
+        <!-- Hambantota District -->
+        <option value="Sooriyawewa">Sooriyawewa</option>
+        <option value="Lunugamvehera">Lunugamvehera</option>
+        <option value="Thissamaharama">Thissamaharama</option>
+        <option value="Hambantota">Hambantota</option>
+        <option value="Ambalantota">Ambalantota</option>
+        <option value="Angunakolapelessa">Angunakolapelessa</option>
+        <option value="Weeraketiya">Weeraketiya</option>
+        <option value="Katuwana">Katuwana</option>
+        <option value="Walasmulla">Walasmulla</option>
+        <option value="Okewela">Okewela</option>
+        <option value="Beliatta">Beliatta</option>
+        <option value="Tangalle">Tangalle</option>
+        <!-- Jaffna District -->
+        <option value="Island North (Kayts)">Island North (Kayts)</option>
+        <option value="Karainagar">Karainagar</option>
+        <option value="Valikamam West (Chankanai)">Valikamam West (Chankanai)</option>
+        <option value="Valikamam South-West (Sandilipay)">Valikamam South-West (Sandilipay)</option>
+        <option value="Valikamam North (Tellipallai)">Valikamam North (Tellipallai)</option>
+        <option value="Valikamam South (Uduvil)">Valikamam South (Uduvil)</option>
+        <option value="Valikamam East (Kopay)">Valikamam East (Kopay)</option>
+        <option value="Vadamaradchi South-West (Karaveddy)">Vadamaradchi South-West (Karaveddy)</option>
+        <option value="Vadamaradchi East">Vadamaradchi East</option>
+        <option value="Vadamaradchi North (Point Pedro)">Vadamaradchi North (Point Pedro)</option>
+        <option value="Thenmaradchi (Chavakachcheri)">Thenmaradchi (Chavakachcheri)</option>
+        <option value="Nallur">Nallur</option>
+        <option value="Jaffna">Jaffna</option>
+        <option value="Island South (Velanai)">Island South (Velanai)</option>
+        <option value="Delft">Delft</option>
+        <!-- Mannar District -->
+        <option value="Mannar Town">Mannar Town</option>
+        <option value="Manthai West">Manthai West</option>
+        <option value="Madhu">Madhu</option>
+        <option value="Nanattan">Nanattan</option>
+        <option value="Musali">Musali</option>
+        <!-- Vavuniya District -->
+        <option value="Vavuniya North">Vavuniya North</option>
+        <option value="Vavuniya South">Vavuniya South</option>
+        <option value="Vavuniya">Vavuniya</option>
+        <option value="Vengalacheddikulam">Vengalacheddikulam</option>
+        <!-- Mullaitivu District -->
+        <option value="Thunukkai">Thunukkai</option>
+        <option value="Manthai East">Manthai East</option>
+        <option value="Puthukkudiyiruppu">Puthukkudiyiruppu</option>
+        <option value="Oddusuddan">Oddusuddan</option>
+        <option value="Maritimepattu">Maritimepattu</option>
+        <option value="Welioya">Welioya</option>
+        <!-- Kilinochchi District -->
+        <option value="Pachchilaipalli">Pachchilaipalli</option>
+        <option value="Kandavalai">Kandavalai</option>
+        <option value="Karachchi">Karachchi</option>
+        <option value="Poonakary">Poonakary</option>
+        <!-- Batticaloa District -->
+        <option value="Koralai Pattu North (Vaharai)">Koralai Pattu North (Vaharai)</option>
+        <option value="Koralai Pattu Central">Koralai Pattu Central</option>
+        <option value="Koralai Pattu West (Oddamavadi)">Koralai Pattu West (Oddamavadi)</option>
+        <option value="Koralai Pattu (Valachchenai)">Koralai Pattu (Valachchenai)</option>
+        <option value="Koralai Pattu South (Kiran)">Koralai Pattu South (Kiran)</option>
+        <option value="Eravur Pattu">Eravur Pattu</option>
+        <option value="Eravur Town">Eravur Town</option>
+        <option value="Manmunai North">Manmunai North</option>
+        <option value="Manmunai West">Manmunai West</option>
+        <option value="Kattankudy">Kattankudy</option>
+        <option value="Manmunai Pattu (Araipattai)">Manmunai Pattu (Araipattai)</option>
+        <option value="Manmunai South-West">Manmunai South-West</option>
+        <option value="Porativu Pattu">Porativu Pattu</option>
+        <option value="Manmunai South & Eruvil Pattu">Manmunai South & Eruvil Pattu</option>
+        <!-- Ampara District -->
+        <option value="Dehiattakandiya">Dehiattakandiya</option>
+        <option value="Padiyathalawa">Padiyathalawa</option>
+        <option value="Mahaoya">Mahaoya</option>
+        <option value="Uhana">Uhana</option>
+        <option value="Ampara">Ampara</option>
+        <option value="Navithanveli">Navithanveli</option>
+        <option value="Sammanthurai">Sammanthurai</option>
+        <option value="Kalmunai Tamil Division">Kalmunai Tamil Division</option>
+        <option value="Kalmunai">Kalmunai</option>
+        <option value="Sainthamaruthu">Sainthamaruthu</option>
+        <option value="Karaitheevu">Karaitheevu</option>
+        <option value="Ninthavur">Ninthavur</option>
+        <option value="Addalaichchenai">Addalaichchenai</option>
+        <option value="Irakkamam">Irakkamam</option>
+        <option value="Akkaraipattu">Akkaraipattu</option>
+        <option value="Alayadiwembu">Alayadiwembu</option>
+        <option value="Damana">Damana</option>
+        <option value="Thirukkovil">Thirukkovil</option>
+        <option value="Pothuvil">Pothuvil</option>
+        <option value="Lahugala">Lahugala</option>
+        <!-- Trincomalee District -->
+        <option value="Padavi Sri Pura">Padavi Sri Pura</option>
+        <option value="Kuchchaveli">Kuchchaveli</option>
+        <option value="Gomarankadawala">Gomarankadawala</option>
+        <option value="Morawewa">Morawewa</option>
+        <option value="Trincomalee Town and Gravets">Trincomalee Town and Gravets</option>
+        <option value="Thambalagamuwa">Thambalagamuwa</option>
+        <option value="Kanthale">Kanthale</option>
+        <option value="Kinniya">Kinniya</option>
+        <option value="Muttur">Muttur</option>
+        <option value="Seruvila">Seruvila</option>
+        <option value="Verugal (Eachchilampattu)">Verugal (Eachchilampattu)</option>
+        <!-- Kurunegala District -->
+        <option value="Giribawa">Giribawa</option>
+        <option value="Galgamuwa">Galgamuwa</option>
+        <option value="Ehetuwewa">Ehetuwewa</option>
+        <option value="Ambanpola">Ambanpola</option>
+        <option value="Kotavehera">Kotavehera</option>
+        <option value="Rasnayakapura">Rasnayakapura</option>
+        <option value="Nikaweratiya">Nikaweratiya</option>
+        <option value="Maho">Maho</option>
+        <option value="Polpithigama">Polpithigama</option>
+        <option value="Ibbagamuwa">Ibbagamuwa</option>
+        <option value="Ganewatta">Ganewatta</option>
+        <option value="Wariyapola">Wariyapola</option>
+        <option value="Kobeigane">Kobeigane</option>
+        <option value="Bingiriya">Bingiriya</option>
+        <option value="Panduwasnuwara West">Panduwasnuwara West</option>
+        <option value="Panduwasnuwara East">Panduwasnuwara East</option>
+        <option value="Bamunakotuwa">Bamunakotuwa</option>
+        <option value="Maspotha">Maspotha</option>
+        <option value="Kurunegala">Kurunegala</option>
+        <option value="Mallawapitiya">Mallawapitiya</option>
+        <option value="Mawathagama">Mawathagama</option>
+        <option value="Rideegama">Rideegama</option>
+        <option value="Weerambugedara">Weerambugedara</option>
+        <option value="Kuliyapitiya East">Kuliyapitiya East</option>
+        <option value="Kuliyapitiya West">Kuliyapitiya West</option>
+        <option value="Udubaddawa">Udubaddawa</option>
+        <option value="Pannala">Pannala</option>
+        <option value="Narammala">Narammala</option>
+        <option value="Alawwa">Alawwa</option>
+        <option value="Polgahawela">Polgahawela</option>
+        <!-- Puttalam District -->
+        <option value="Kalpitiya">Kalpitiya</option>
+        <option value="Vanathawilluwa">Vanathawilluwa</option>
+        <option value="Karuwalagaswewa">Karuwalagaswewa</option>
+        <option value="Nawagattegama">Nawagattegama</option>
+        <option value="Puttalam">Puttalam</option>
+        <option value="Mundel">Mundel</option>
+        <option value="Mahakumbukkadawala">Mahakumbukkadawala</option>
+        <option value="Anamaduwa">Anamaduwa</option>
+        <option value="Pallama">Pallama</option>
+        <option value="Arachchikattuwa">Arachchikattuwa</option>
+        <option value="Chilaw">Chilaw</option>
+        <option value="Madampe">Madampe</option>
+        <option value="Mahawewa">Mahawewa</option>
+        <option value="Nattandiya">Nattandiya</option>
+        <option value="Wennappuwa">Wennappuwa</option>
+        <option value="Dankotuwa">Dankotuwa</option>
+        <!-- Anuradhapura District -->
+        <option value="Padaviya">Padaviya</option>
+        <option value="Kebithigollewa">Kebithigollewa</option>
+        <option value="Medawachchiya">Medawachchiya</option>
+        <option value="Mahawilachchiya">Mahawilachchiya</option>
+        <option value="Nuwaragam Palatha Central">Nuwaragam Palatha Central</option>
+        <option value="Rambewa">Rambewa</option>
+        <option value="Kahatagasdigiliya">Kahatagasdigiliya</option>
+        <option value="Horowpothana">Horowpothana</option>
+        <option value="Galenbindunuwewa">Galenbindunuwewa</option>
+        <option value="Mihinthale">Mihinthale</option>
+        <option value="Nuwaragam Palatha East">Nuwaragam Palatha East</option>
+        <option value="Nachchaduwa">Nachchaduwa</option>
+        <option value="Nochchiyagama">Nochchiyagama</option>
+        <option value="Rajanganaya">Rajanganaya</option>
+        <option value="Thambuttegama">Thambuttegama</option>
+        <option value="Thalawa">Thalawa</option>
+        <option value="Thirappane">Thirappane</option>
+        <option value="Kekirawa">Kekirawa</option>
+        <option value="Palugaswewa">Palugaswewa</option>
+        <option value="Ipalogama">Ipalogama</option>
+        <option value="Galnewa">Galnewa</option>
+        <option value="Palagala">Palagala</option>
+        <!-- Polonnaruwa District -->
+        <option value="Hingurakgoda">Hingurakgoda</option>
+        <option value="Medirigiriya">Medirigiriya</option>
+        <option value="Lankapura">Lankapura</option>
+        <option value="Welikanda">Welikanda</option>
+        <option value="Dimbulagala">Dimbulagala</option>
+        <option value="Thamankaduwa">Thamankaduwa</option>
+        <option value="Elahera">Elahera</option>
+        <!-- Badulla District -->
+        <option value="Mahiyanganaya">Mahiyanganaya</option>
+        <option value="Rideemaliyadda">Rideemaliyadda</option>
+        <option value="Meegahakivula">Meegahakivula</option>
+        <option value="Kandaketiya">Kandaketiya</option>
+        <option value="Soranathota">Soranathota</option>
+        <option value="Passara">Passara</option>
+        <option value="Lunugala">Lunugala</option>
+        <option value="Badulla">Badulla</option>
+        <option value="Hali-Ela">Hali-Ela</option>
+        <option value="Uva Paranagama">Uva Paranagama</option>
+        <option value="Welimada">Welimada</option>
+        <option value="Bandarawela">Bandarawela</option>
+        <option value="Ella">Ella</option>
+        <option value="Haputale">Haputale</option>
+        <option value="Haldummulla">Haldummulla</option>
+        <!-- Moneragala District -->
+        <option value="Bibile">Bibile</option>
+        <option value="Madulla">Madulla</option>
+        <option value="Medagama">Medagama</option>
+        <option value="Siyambalanduwa">Siyambalanduwa</option>
+        <option value="Moneragala">Moneragala</option>
+        <option value="Badalkumbura">Badalkumbura</option>
+        <option value="Wellawaya">Wellawaya</option>
+        <option value="Buttala">Buttala</option>
+        <option value="Katharagama">Katharagama</option>
+        <option value="Thanamalvila">Thanamalvila</option>
+        <option value="Sevanagala">Sevanagala</option>
+        <!-- Ratnapura District -->
+        <option value="Eheliyagoda">Eheliyagoda</option>
+        <option value="Kuruvita">Kuruvita</option>
+        <option value="Kiriella">Kiriella</option>
+        <option value="Ratnapura">Ratnapura</option>
+        <option value="Imbulpe">Imbulpe</option>
+        <option value="Balangoda">Balangoda</option>
+        <option value="Opanayake">Opanayake</option>
+        <option value="Pelmadulla">Pelmadulla</option>
+        <option value="Elapatha">Elapatha</option>
+        <option value="Ayagama">Ayagama</option>
+        <option value="Kalawana">Kalawana</option>
+        <option value="Nivithigala">Nivithigala</option>
+        <option value="Kahawatta">Kahawatta</option>
+        <option value="Godakawela">Godakawela</option>
+        <option value="Weligepola">Weligepola</option>
+        <option value="Embilipitiya">Embilipitiya</option>
+        <option value="Kolonna">Kolonna</option>
+        <!-- Kegalle District -->
+        <option value="Rambukkana">Rambukkana</option>
+        <option value="Mawanella">Mawanella</option>
+        <option value="Aranayaka">Aranayaka</option>
+        <option value="Kegalle">Kegalle</option>
+        <option value="Galigamuwa">Galigamuwa</option>
+        <option value="Warakapola">Warakapola</option>
+        <option value="Ruwanwella">Ruwanwella</option>
+        <option value="Bulathkohupitiya">Bulathkohupitiya</option>
+        <option value="Yatiyanthota">Yatiyanthota</option>
+        <option value="Dehiovita">Dehiovita</option>
+        <option value="Deraniyagala">Deraniyagala</option>
+    </select>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn" onclick="prevStep(2)">Previous</button>
+                    <button type="button" class="nav-btn" onclick="nextStep(2)">Next</button>
+                </div>
+            </div>
+            <!-- Step 3: Personal Details -->
+            <div class="step" data-step="3">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="clientDateOfBirth">Date of Birth *</label>
+                        <input type="date" id="clientDateOfBirth" name="dateOfBirth" required>
+                        <label class="floating-label">Date of Birth</label>
+                        <span class="error-message">This field is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientGender">Gender *</label>
+                        <select id="clientGender" name="gender" required onchange="toggleOtherGender()">
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <label class="floating-label">Gender</label>
+                        <span class="error-message">This field is required</span>
+                    </div>
+                    <div class="form-group hidden" id="customGenderGroup">
+                        <label for="clientCustomGender">Custom Gender</label>
+                        <input type="text" id="clientCustomGender" name="customGender" placeholder="Specify">
+                        <label class="floating-label">Custom Gender</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientCivilStatus">Civil Status</label>
+                        <select id="clientCivilStatus" name="civilStatus" onchange="toggleOtherCivilStatus()">
+                            <option value="">Select</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Divorced/Separated">Divorced/Separated</option>
+                            <option value="Widowed">Widowed</option>
+                            <option value="Single Mom/Dad">Single Mom/Dad</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <label class="floating-label">Civil Status</label>
+                    </div>
+                    <div class="form-group hidden" id="customCivilStatusGroup">
+                        <label for="clientCustomCivilStatus">Custom Civil Status</label>
+                        <input type="text" id="clientCustomCivilStatus" name="customCivilStatus" placeholder="Specify">
+                        <label class="floating-label">Custom Civil Status</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientNationality">Nationality</label>
+                        <select id="clientNationality" name="nationality" onchange="toggleOtherNationality()">
+                            <option value="">Select</option>
+                            <option value="Sri Lankan">Sri Lankan</option>
+                            <option value="Non-Sri Lankan">Non-Sri Lankan</option>
+                        </select>
+                        <label class="floating-label">Nationality</label>
+                    </div>
+                    <div class="form-group hidden" id="customNationalityGroup">
+                        <label for="clientCustomNationality">Custom Nationality</label>
+                        <input type="text" id="clientCustomNationality" name="customNationality" placeholder="Specify">
+                        <label class="floating-label">Custom Nationality</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientRace">Race</label>
+                        <select id="clientRace" name="race" onchange="toggleOtherRace()">
+                            <option value="">Select</option>
+                            <option value="Sinhala">Sinhala</option>
+                            <option value="Tamil">Tamil</option>
+                            <option value="Catholic">Catholic</option>
+                            <option value="Muslim">Muslim</option>
+                            <option value="Malee">Malee</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <label class="floating-label">Race</label>
+                    </div>
+                    <div class="form-group hidden" id="customRaceGroup">
+                        <label for="clientCustomRace">Custom Race</label>
+                        <input type="text" id="clientCustomRace" name="customRace" placeholder="Specify">
+                        <label class="floating-label">Custom Race</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientReligion">Religion</label>
+                        <select id="clientReligion" name="religion" onchange="toggleOtherReligion()">
+                            <option value="">Select</option>
+                            <option value="Buddhist">Buddhist</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Christian">Christian</option>
+                            <option value="Catholic">Catholic</option>
+                            <option value="Islam">Islam</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <label class="floating-label">Religion</label>
+                    </div>
+                    <div class="form-group hidden" id="customReligionGroup">
+                        <label for="clientCustomReligion">Custom Religion</label>
+                        <input type="text" id="clientCustomReligion" name="customReligion" placeholder="Specify">
+                        <label class="floating-label">Custom Religion</label>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn" onclick="prevStep(3)">Previous</button>
+                    <button type="button" class="nav-btn" onclick="nextStep(3)">Next</button>
+                </div>
+            </div>
+            <!-- Step 4: Contact & Social Media -->
+            <div class="step" data-step="4">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Contact Numbers *</label>
+                        <div id="contactContainer">
+                            <div class="dynamic-row">
+                                <input type="tel" name="contactNumber1" placeholder="Enter Contact Number" required>
+                                <span class="error-message">This field is required</span>
+                            </div>
+                        </div>
+                        <button type="button" class="add-btn" onclick="addContactRow()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                            Add Contact Number
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEmail">Email Address</label>
+                        <input type="email" id="clientEmail" name="email">
+                        <label class="floating-label">Email Address</label>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Social Media Platforms</label>
+                        <div class="social-media-group">
+                            <div class="social-media-item">
+                                <label><input type="checkbox" name="socialMedia" value="whatsapp" id="whatsappCheckbox"> WhatsApp</label>
+                                <input type="text" class="social-media-input" name="socialMediaDetails[whatsapp]" placeholder="Enter WhatsApp Number" disabled>
+                            </div>
+                            <div class="social-media-item">
+                                <label><input type="checkbox" name="socialMedia" value="facebook" id="facebookCheckbox"> Facebook</label>
+                                <input type="text" class="social-media-input" name="socialMediaDetails[facebook]" placeholder="Enter Facebook Profile URL" disabled>
+                            </div>
+                            <div class="social-media-item">
+                                <label><input type="checkbox" name="socialMedia" value="instagram" id="instagramCheckbox"> Instagram</label>
+                                <input type="text" class="social-media-input" name="socialMediaDetails[instagram]" placeholder="Enter Instagram Profile URL" disabled>
+                            </div>
+                            <div class="social-media-item">
+                                <label><input type="checkbox" name="socialMedia" value="youtube" id="youtubeCheckbox"> YouTube</label>
+                                <input type="text" class="social-media-input" name="socialMediaDetails[youtube]" placeholder="Enter YouTube Channel URL" disabled>
+                            </div>
+                            <div class="social-media-item">
+                                <label><input type="checkbox" name="socialMedia" value="twitter" id="twitterCheckbox"> Twitter(X)</label>
+                                <input type="text" class="social-media-input" name="socialMediaDetails[twitter]" placeholder="Enter Twitter(X) Profile URL" disabled>
+                            </div>
+                            <div class="social-media-item">
+                                <label><input type="checkbox" name="socialMedia" value="other" id="otherCheckbox"> Other</label>
+                                <input type="text" class="social-media-input" name="socialMediaDetails[other]" placeholder="Enter Other Social Media URL" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn" onclick="prevStep(4)">Previous</button>
+                    <button type="button" class="nav-btn" onclick="nextStep(4)">Next</button>
+                </div>
+            </div>
+            <!-- Step 5: Professional & Financial Info -->
+            <div class="step" data-step="5">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="clientOccupation">Occupation</label>
+                        <select id="clientOccupation" name="occupation" onchange="toggleOccupationFields()">
+                            <option value="">Select</option>
+                            <option value="Student">Student</option>
+                            <option value="Unemployed">Unemployed</option>
+                            <option value="Housewife">Housewife</option>
+                            <option value="Retired and not working">Retired and not working</option>
+                            <option value="Work as">Work as</option>
+                        </select>
+                        <label class="floating-label">Occupation</label>
+                    </div>
+                    <div class="form-group hidden" id="customOccupationGroup">
+                        <label for="clientCustomOccupation">Custom Occupation</label>
+                        <input type="text" id="clientCustomOccupation" name="customOccupation" placeholder="Specify">
+                        <label class="floating-label">Custom Occupation</label>
+                    </div>
+                    <div class="form-group hidden" id="muscleStrengthGroup">
+                        <label for="clientMuscleStrength">How much muscle strength is used for your daily duty?</label>
+                        <select id="clientMuscleStrength" name="muscleStrength">
+                            <option value="">Select</option>
+                            <option value="High">High</option>
+                            <option value="Moderate">Moderate</option>
+                            <option value="Low">Low</option>
+                            <option value="Very low">Very low</option>
+                        </select>
+                        <label class="floating-label">Muscle Strength</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientMonthlyIncome">Monthly Income</label>
+                        <select id="clientMonthlyIncome" name="monthlyIncome">
+                            <option value="">Select</option>
+                            <option value="0-49999">0 - 49,999</option>
+                            <option value="50000-99999">50,000 - 99,999</option>
+                            <option value="100000-149999">100,000 - 149,999</option>
+                            <option value="150000-300000">150,000 - 300,000</option>
+                            <option value="300000+">More than 300,000</option>
+                        </select>
+                        <label class="floating-label">Monthly Income</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientIncomeType">Income Type</label>
+                        <select id="clientIncomeType" name="incomeType" onchange="toggleOtherIncomeType()">
+                            <option value="">Select</option>
+                            <option value="Salary">Salary</option>
+                            <option value="Business">Business</option>
+                            <option value="Investments">Investments</option>
+                            <option value="No Income">No Income</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <label class="floating-label">Income Type</label>
+                    </div>
+                    <div class="form-group hidden" id="customIncomeTypeGroup">
+                        <label for="clientCustomIncomeType">Custom Income Type</label>
+                        <input type="text" id="clientCustomIncomeType" name="customIncomeType" placeholder="Specify">
+                        <label class="floating-label">Custom Income Type</label>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn" onclick="prevStep(5)">Previous</button>
+                    <button type="button" class="nav-btn" onclick="nextStep(5)">Next</button>
+                </div>
+            </div>
+            <!-- Step 6: Family & Education -->
+            <div class="step" data-step="6">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Dependents</label>
+                        <div id="dependentsContainer">
+                            <div class="dynamic-row first-row">
+                                <select name="dependentRelationship1" onchange="toggleParentSubcategoryOrOther(this, 'dependentParentSubcategory1', 'dependentOtherRelationship1')">
+                                    <option value="">Select</option>
+                                    <option value="Parent">Parent</option>
+                                    <option value="Sibling">Sibling</option>
+                                    <option value="Spouse">Spouse</option>
+                                    <option value="Child">Child</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <select name="dependentParentSubcategory1" class="hidden">
+                                    <option value="">Select Parent</option>
+                                    <option value="Mother">Mother</option>
+                                    <option value="Father">Father</option>
+                                </select>
+                                <input type="text" name="dependentOtherRelationship1" class="hidden" placeholder="Specify Relationship">
+                            </div>
+                        </div>
+                        <button type="button" class="add-btn" onclick="addDependentRow()">Add Dependent</button>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Family Members</label>
+                        <div id="familyContainer">
+                            <div class="dynamic-row first-row">
+                                <select name="familyRelationship1" onchange="toggleParentSubcategoryOrOther(this, 'familyParentSubcategory1', 'familyOtherRelationship1')">
+                                    <option value="">Select</option>
+                                    <option value="Parent">Parent</option>
+                                    <option value="Sibling">Sibling</option>
+                                    <option value="Spouse">Spouse</option>
+                                    <option value="Child">Child</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <select name="familyParentSubcategory1" class="hidden">
+                                    <option value="">Select Parent</option>
+                                    <option value="Mother">Mother</option>
+                                    <option value="Father">Father</option>
+                                </select>
+                                <input type="text" name="familyOtherRelationship1" class="hidden" placeholder="Specify Relationship">
+                            </div>
+                        </div>
+                        <button type="button" class="add-btn" onclick="addFamilyRow()">Add Family Member</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEducation">Highest Level of Education</label>
+                        <select id="clientEducation" name="education">
+                            <option value="">Select</option>
+                            <option value="No Education">No Education</option>
+                            <option value="Up to Grade 5">Up to Grade 5</option>
+                            <option value="O/L">O/L</option>
+                            <option value="A/L">A/L</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Higher Diploma">Higher Diploma</option>
+                            <option value="BSc">BSc (Basic Degree)</option>
+                            <option value="MSc/MBA">MSc/MBA (Higher Degree)</option>
+                            <option value="PhD">PhD</option>
+                        </select>
+                        <label class="floating-label">Education</label>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn" onclick="prevStep(6)">Previous</button>
+                    <button type="button" class="nav-btn" onclick="nextStep(6)">Next</button>
+                </div>
+            </div>
+            <!-- Step 7: Admission & Submission -->
+            <div class="step" data-step="7">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="clientHowDidYouKnow">How did you hear about us?</label>
+                        <select id="clientHowDidYouKnow" name="howDidYouKnow" onchange="toggleOtherHowDidYouKnow()">
+                            <option value="">Select</option>
+                            <option value="Social Media">Social Media</option>
+                            <option value="Friend">Friend</option>
+                            <option value="Family">Family</option>
+                            <option value="Advertisement">Advertisement</option>
+                            <option value="HealthCare Professional">HealthCare Professional</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <label class="floating-label">How did you hear about us?</label>
+                    </div>
+                    <div class="form-group hidden" id="customHowDidYouKnowGroup">
+                        <label for="clientHowDidYouKnowOther">Custom</label>
+                        <input type="text" id="clientHowDidYouKnowOther" name="howDidYouKnowOther" placeholder="Specify">
+                        <label class="floating-label">Custom</label>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn" onclick="prevStep(7)">Previous</button>
+                    <button type="button" class="submit-btn" onclick="submitForm()">Submit Registration</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Confirmation Message -->
+    <div class="overlay" id="overlay"></div>
+    <div class="confirmation-message" id="confirmationMessage">
+        <div class="checkmark">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+            </svg>
+        </div>
+        <h2>Registration Successful!</h2>
+        <p>Thank you for completing the registration form. We'll review your information and contact you shortly.</p>
+        <button class="submit-btn" onclick="closeConfirmation()">Done</button>
+    </div>
+
+    <script>
+        // Set registration number
+        document.getElementById('clientRegistrationNumber').value = `REG${Math.floor(1000 + Math.random() * 9000)}`;
+
+        // Social media input logic
+        const socialMediaCheckboxes = [{
+            checkboxId: 'whatsappCheckbox',
+            inputId: 'socialMediaDetails[whatsapp]'
+        }, {
+            checkboxId: 'facebookCheckbox',
+            inputId: 'socialMediaDetails[facebook]'
+        }, {
+            checkboxId: 'instagramCheckbox',
+            inputId: 'socialMediaDetails[instagram]'
+        }, {
+            checkboxId: 'youtubeCheckbox',
+            inputId: 'socialMediaDetails[youtube]'
+        }, {
+            checkboxId: 'twitterCheckbox',
+            inputId: 'socialMediaDetails[twitter]'
+        }, {
+            checkboxId: 'otherCheckbox',
+            inputId: 'socialMediaDetails[other]'
+        }];
+
+        socialMediaCheckboxes.forEach(({
+            checkboxId,
+            inputId
+        }) => {
+            const checkbox = document.getElementById(checkboxId);
+            const input = document.querySelector(`input[name="${inputId}"]`);
+            checkbox.addEventListener('change', () => {
+                input.classList.toggle('active', checkbox.checked);
+                input.disabled = !checkbox.checked;
+                input.required = checkbox.checked;
+                if (!checkbox.checked) input.value = '';
+            });
+        });
+
+        // Custom field logic
+        function toggleOtherGender() {
+            const select = document.getElementById('clientGender');
+            const group = document.getElementById('customGenderGroup');
+            group.classList.toggle('hidden', select.value !== 'Other');
+            if (select.value !== 'Other') document.getElementById('clientCustomGender').value = '';
+        }
+
+        function toggleOtherCivilStatus() {
+            const select = document.getElementById('clientCivilStatus');
+            const group = document.getElementById('customCivilStatusGroup');
+            group.classList.toggle('hidden', select.value !== 'Other');
+            if (select.value !== 'Other') document.getElementById('clientCustomCivilStatus').value = '';
+        }
+
+        function toggleOtherNationality() {
+            const select = document.getElementById('clientNationality');
+            const group = document.getElementById('customNationalityGroup');
+            group.classList.toggle('hidden', select.value !== 'Non-Sri Lankan');
+            if (select.value !== 'Non-Sri Lankan') document.getElementById('clientCustomNationality').value = '';
+        }
+
+        function toggleOtherRace() {
+            const select = document.getElementById('clientRace');
+            const group = document.getElementById('customRaceGroup');
+            group.classList.toggle('hidden', select.value !== 'Other');
+            if (select.value !== 'Other') document.getElementById('clientCustomRace').value = '';
+        }
+
+        function toggleOtherReligion() {
+            const select = document.getElementById('clientReligion');
+            const group = document.getElementById('customReligionGroup');
+            group.classList.toggle('hidden', select.value !== 'Other');
+            if (select.value !== 'Other') document.getElementById('clientCustomReligion').value = '';
+        }
+
+        function toggleOccupationFields() {
+            const select = document.getElementById('clientOccupation');
+            const customGroup = document.getElementById('customOccupationGroup');
+            const muscleGroup = document.getElementById('muscleStrengthGroup');
+            customGroup.classList.toggle('hidden', select.value !== 'Work as');
+            muscleGroup.classList.toggle('hidden', select.value === '');
+            if (select.value !== 'Work as') document.getElementById('clientCustomOccupation').value = '';
+            if (select.value === '') document.getElementById('clientMuscleStrength').value = '';
+        }
+
+        function toggleOtherIncomeType() {
+            const select = document.getElementById('clientIncomeType');
+            const group = document.getElementById('customIncomeTypeGroup');
+            group.classList.toggle('hidden', !['No Income', 'Other'].includes(select.value));
+            if (!['No Income', 'Other'].includes(select.value)) document.getElementById('clientCustomIncomeType').value = '';
+        }
+
+        function toggleOtherHowDidYouKnow() {
+            const select = document.getElementById('clientHowDidYouKnow');
+            const group = document.getElementById('customHowDidYouKnowGroup');
+            group.classList.toggle('hidden', select.value !== 'Other');
+            if (select.value !== 'Other') document.getElementById('clientHowDidYouKnowOther').value = '';
+        }
+
+        // Dynamic row addition
+        let contactCount = 1;
+        let dependentCount = 1;
+        let familyCount = 1;
+
+        function addContactRow() {
+            contactCount++;
+            const container = document.getElementById('contactContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'dynamic-row';
+            newRow.innerHTML = `
+                <input type="tel" name="contactNumber${contactCount}" placeholder="Enter Contact Number">
+                <button type="button" class="remove-btn" onclick="removeRow(this)">Remove</button>
+            `;
+            container.appendChild(newRow);
+        }
+
+        function addDependentRow() {
+            dependentCount++;
+            const container = document.getElementById('dependentsContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'dynamic-row';
+            newRow.innerHTML = `
+                <select name="dependentRelationship${dependentCount}" onchange="toggleParentSubcategoryOrOther(this, 'dependentParentSubcategory${dependentCount}', 'dependentOtherRelationship${dependentCount}')">
+                    <option value="">Select</option>
+                    <option value="Parent">Parent</option>
+                    <option value="Sibling">Sibling</option>
+                    <option value="Spouse">Spouse</option>
+                    <option value="Child">Child</option>
+                    <option value="Other">Other</option>
+                </select>
+                <select name="dependentParentSubcategory${dependentCount}" class="hidden">
+                    <option value="">Select Parent</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Father">Father</option>
+                </select>
+                <input type="text" name="dependentOtherRelationship${dependentCount}" class="hidden" placeholder="Specify Relationship">
+                <button type="button" class="remove-btn" onclick="removeRow(this)">Remove</button>
+            `;
+            container.appendChild(newRow);
+        }
+
+        function addFamilyRow() {
+            familyCount++;
+            const container = document.getElementById('familyContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'dynamic-row';
+            newRow.innerHTML = `
+                <select name="familyRelationship${familyCount}" onchange="toggleParentSubcategoryOrOther(this, 'familyParentSubcategory${familyCount}', 'familyOtherRelationship${familyCount}')">
+                    <option value="">Select</option>
+                    <option value="Parent">Parent</option>
+                    <option value="Sibling">Sibling</option>
+                    <option value="Spouse">Spouse</option>
+                    <option value="Child">Child</option>
+                    <option value="Other">Other</option>
+                </select>
+                <select name="familyParentSubcategory${familyCount}" class="hidden">
+                    <option value="">Select Parent</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Father">Father</option>
+                </select>
+                <input type="text" name="familyOtherRelationship${familyCount}" class="hidden" placeholder="Specify Relationship">
+                <button type="button" class="remove-btn" onclick="removeRow(this)">Remove</button>
+            `;
+            container.appendChild(newRow);
+        }
+
+        function toggleParentSubcategoryOrOther(selectElement, parentSubcategoryId, otherInputId) {
+            const parentSubcategory = document.getElementsByName(parentSubcategoryId)[0];
+            const otherInput = document.getElementsByName(otherInputId)[0];
+            parentSubcategory.classList.toggle('hidden', selectElement.value !== 'Parent');
+            otherInput.classList.toggle('hidden', selectElement.value !== 'Other');
+            if (selectElement.value !== 'Parent') parentSubcategory.value = '';
+            if (selectElement.value !== 'Other') otherInput.value = '';
+        }
+
+        function removeRow(button) {
+            button.parentElement.remove();
+        }
+
+        // Step navigation
+        function nextStep(currentStep) {
+            const stepElement = document.querySelector(`.step[data-step="${currentStep}"]`);
+            const requiredFields = stepElement.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                const errorMessage = field.parentElement.querySelector('.error-message');
+                if (!field.value) {
+                    isValid = false;
+                    field.style.borderColor = '#ef4444';
+                    if (errorMessage) errorMessage.classList.add('active');
+                    const label = field.nextElementSibling;
+                    if (label && label.classList.contains('floating-label')) {
+                        label.style.color = '#ef4444';
+                    }
+                    field.classList.add('animate__animated', 'animate__headShake');
+                    setTimeout(() => field.classList.remove('animate__animated', 'animate__headShake'), 1000);
+                } else {
+                    field.style.borderColor = '#4f46e5';
+                    if (errorMessage) errorMessage.classList.remove('active');
+                    const label = field.nextElementSibling;
+                    if (label && label.classList.contains('floating-label')) {
+                        label.style.color = '#4f46e5';
+                    }
+                }
+            });
+
+            if (isValid) {
+                stepElement.classList.remove('active');
+                const nextStepElement = document.querySelector(`.step[data-step="${currentStep + 1}"]`);
+                if (nextStepElement) {
+                    nextStepElement.classList.add('active');
+                    updateProgress(currentStep + 1);
+                    document.querySelector('.container').scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }
+
+        function prevStep(currentStep) {
+            const stepElement = document.querySelector(`.step[data-step="${currentStep}"]`);
+            stepElement.classList.remove('active');
+            const prevStepElement = document.querySelector(`.step[data-step="${currentStep - 1}"]`);
+            prevStepElement.classList.add('active');
+            updateProgress(currentStep - 1);
+            document.querySelector('.container').scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function updateProgress(step) {
+            const progressSteps = document.querySelectorAll('.progress-step');
+            progressSteps.forEach((progress, index) => {
+                if (index + 1 < step) {
+                    progress.classList.add('completed');
+                    progress.classList.remove('active');
+                } else if (index + 1 === step) {
+                    progress.classList.add('active');
+                    progress.classList.remove('completed');
+                } else {
+                    progress.classList.remove('active', 'completed');
+                }
+            });
+        }
+
+        // Form submission
+        function submitForm() {
+            const form = document.getElementById('clientForm');
+            const formData = new FormData(form);
+            const socialMediaDetails = {};
+            formData.getAll('socialMedia').forEach(platform => {
+                const detail = formData.get(`socialMediaDetails[${platform}]`);
+                if (detail) socialMediaDetails[platform] = detail;
+            });
+            const contactData = [];
+            document.querySelectorAll('#contactContainer .dynamic-row').forEach(row => {
+                const contactNumber = row.querySelector('input[name*="contactNumber"]').value;
+                if (contactNumber) contactData.push({
+                    number: contactNumber
+                });
+            });
+            const dependentsData = [];
+            document.querySelectorAll('#dependentsContainer .dynamic-row').forEach(row => {
+                const relationshipSelect = row.querySelector('select[name*="dependentRelationship"]').value;
+                const parentSubcategory = row.querySelector('select[name*="dependentParentSubcategory"]').value;
+                const otherRelationship = row.querySelector('input[name*="dependentOtherRelationship"]').value;
+                if (relationshipSelect) {
+                    let relationship = relationshipSelect;
+                    if (relationshipSelect === 'Parent' && parentSubcategory) relationship = parentSubcategory;
+                    else if (relationshipSelect === 'Other' && otherRelationship) relationship = otherRelationship;
+                    dependentsData.push({
+                        relationship
+                    });
+                }
+            });
+            const familyData = [];
+            document.querySelectorAll('#familyContainer .dynamic-row').forEach(row => {
+                const relationshipSelect = row.querySelector('select[name*="familyRelationship"]').value;
+                const parentSubcategory = row.querySelector('select[name*="familyParentSubcategory"]').value;
+                const otherRelationship = row.querySelector('input[name*="familyOtherRelationship"]').value;
+                if (relationshipSelect) {
+                    let relationship = relationshipSelect;
+                    if (relationshipSelect === 'Parent' && parentSubcategory) relationship = parentSubcategory;
+                    else if (relationshipSelect === 'Other' && otherRelationship) relationship = otherRelationship;
+                    familyData.push({
+                        relationship
+                    });
+                }
+            });
+            console.log('Form Data:', Object.fromEntries(formData));
+            console.log('Social Media Details:', socialMediaDetails);
+            console.log('Contact Numbers:', contactData);
+            console.log('Dependents:', dependentsData);
+            console.log('Family Members:', familyData);
+            console.log('Civil Status:', formData.get('civilStatus') === 'Other' ? formData.get('customCivilStatus') : formData.get('civilStatus'));
+            console.log('Nationality:', formData.get('nationality') === 'Non-Sri Lankan' ? formData.get('customNationality') : formData.get('nationality'));
+            console.log('Race:', formData.get('race') === 'Other' ? formData.get('customRace') : formData.get('race'));
+            console.log('Religion:', formData.get('religion') === 'Other' ? formData.get('customReligion') : formData.get('religion'));
+            console.log('Occupation:', formData.get('occupation') === 'Work as' ? formData.get('customOccupation') : formData.get('occupation'));
+            console.log('Muscle Strength:', formData.get('muscleStrength'));
+            console.log('Income Type:', ['No Income', 'Other'].includes(formData.get('incomeType')) ? formData.get('customIncomeType') : formData.get('incomeType'));
+            console.log('How Did You Hear About Us:', formData.get('howDidYouKnow') === 'Other' ? formData.get('howDidYouKnowOther') : formData.get('howDidYouKnow'));
+
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const overlay = document.getElementById('overlay');
+            overlay.classList.add('active');
+            confirmationMessage.classList.add('active');
+
+            setTimeout(() => {
+                form.reset();
+                document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+                document.querySelector('.step[data-step="1"]').classList.add('active');
+                updateProgress(1);
+                document.querySelectorAll('.social-media-input').forEach(input => {
+                    input.classList.remove('active');
+                    input.value = '';
+                    input.disabled = true;
+                    input.required = false;
+                });
+                document.querySelectorAll('.social-media-group input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                document.querySelectorAll('.hidden').forEach(el => {
+                    el.querySelectorAll('input, select').forEach(input => input.value = '');
+                });
+                document.querySelectorAll('.error-message').forEach(msg => msg.classList.remove('active'));
+                contactCount = 1;
+                dependentCount = 1;
+                familyCount = 1;
+                document.getElementById('contactContainer').innerHTML = `
+                    <div class="dynamic-row">
+                        <input type="tel" name="contactNumber1" placeholder="Enter Contact Number" required>
+                        <span class="error-message">This field is required</span>
+                    </div>
+                `;
+                document.getElementById('dependentsContainer').innerHTML = `
+                    <div class="dynamic-row first-row">
+                        <select name="dependentRelationship1" onchange="toggleParentSubcategoryOrOther(this, 'dependentParentSubcategory1', 'dependentOtherRelationship1')">
+                            <option value="">Select</option>
+                            <option value="Parent">Parent</option>
+                            <option value="Sibling">Sibling</option>
+                            <option value="Spouse">Spouse</option>
+                            <option value="Child">Child</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <select name="dependentParentSubcategory1" class="hidden">
+                            <option value="">Select Parent</option>
+                            <option value="Mother">Mother</option>
+                            <option value="Father">Father</option>
+                        </select>
+                        <input type="text" name="dependentOtherRelationship1" class="hidden" placeholder="Specify Relationship">
+                    </div>
+                `;
+                document.getElementById('familyContainer').innerHTML = `
+                    <div class="dynamic-row first-row">
+                        <select name="familyRelationship1" onchange="toggleParentSubcategoryOrOther(this, 'familyParentSubcategory1', 'familyOtherRelationship1')">
+                            <option value="">Select</option>
+                            <option value="Parent">Parent</option>
+                            <option value="Sibling">Sibling</option>
+                            <option value="Spouse">Spouse</option>
+                            <option value="Child">Child</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <select name="familyParentSubcategory1" class="hidden">
+                            <option value="">Select Parent</option>
+                            <option value="Mother">Mother</option>
+                            <option value="Father">Father</option>
+                        </select>
+                        <input type="text" name="familyOtherRelationship1" class="hidden" placeholder="Specify Relationship">
+                    </div>
+                `;
+            }, 3000);
+        }
+
+        function closeConfirmation() {
+            document.getElementById('confirmationMessage').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
+    </script>
+</body>
+
+</html>

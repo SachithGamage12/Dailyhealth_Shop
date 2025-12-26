@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Report Submission</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 0.5rem;
+        }
+        
+        .full-width {
+            grid-column: span 4;
+        }
+        
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 0.2rem;
+        }
+        
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            background: #f9fafb;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 4px rgba(59, 130, 246, 0.3);
+            background: white;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .file-upload {
+            border: 2px dashed #e5e7eb;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 4px;
+            background: #f9fafb;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .file-upload:hover {
+            border-color: #3b82f6;
+            background: #f0f7ff;
+        }
+        
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        
+        .file-upload-label {
+            font-size: 0.9rem;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .parameters-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        
+        .parameters-table th,
+        .parameters-table td {
+            padding: 0.6rem;
+            border: 1px solid #e5e7eb;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+        
+        .parameters-table th {
+            background: #f0f7ff;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        
+        .parameters-table td input,
+        .parameters-table td textarea {
+            width: 100%;
+            border: none;
+            background: transparent;
+            padding: 0.2rem;
+        }
+        
+        .parameters-table td input:focus,
+        .parameters-table td textarea:focus {
+            outline: none;
+            border: none;
+            box-shadow: none;
+            background: #f9fafb;
+        }
+        
+        .reference-value {
+            font-size: 0.8rem;
+            color: #4b5563;
+            font-style: italic;
+        }
+        
+        .submit-btn {
+            grid-column: span 4;
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to right, #2563eb, #db2777);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 900px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .full-width {
+                grid-column: span 2;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            .parameters-table th,
+            .parameters-table td {
+                font-size: 0.8rem;
+                padding: 0.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Lab Report Submission</h1>
+        <form id="labReportForm" enctype="multipart/form-data">
+            <div class="form-grid">
+                <!-- Doctor Name -->
+                <div class="form-group">
+                    <label for="DocName">Doctor Name</label>
+                    <input type="text" id="DocName" name="DocName" placeholder="Enter Doctor name" required>
+                </div>
+
+                <!-- Lab Name -->
+                <div class="form-group">
+                    <label for="labName">Lab Name</label>
+                    <input type="text" id="labName" name="labName" placeholder="Enter lab name" required>
+                </div>
+
+                <!-- Report Issued Date -->
+                <div class="form-group">
+                    <label for="reportDate">Report Collected Date</label>
+                    <input type="date" id="reportDate" name="reportDate" required>
+                </div>
+
+                <!-- Report Type -->
+                <div class="form-group">
+                    <label for="reportType">Report Type</label>
+                    <select id="reportType" name="reportType" required>
+                        <option value="">Select</option>
+                        <option value="ESR">ESR</option>
+                        <option value="CRP">CRP</option>
+                        <option value="FBS">FBS</option>
+                        <option value="Ultra Sound Scan">Ultra Sound Scan</option>
+                        <option value="Upper & Lower Limb Arterial Duplex">Upper & Lower Limb Arterial Duplex</option>
+                        <option value="Serum Lithium">Serum Lithium</option>
+                        <option value="Histopathology">Histopathology</option>
+                        <option value="CECT">CECT</option>
+                        <option value="CRP Serum">CRP Serum</option>
+                        <option value="Full Blood Count">Full Blood Count</option>
+                        <option value="Lung Function">Lung Function</option>
+                        <option value="FBC">FBC</option>
+                    </select>
+                </div>
+
+                <!-- Dynamic Parameters Container -->
+                <div class="parameters-container full-width">
+                    <table class="parameters-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Reference Value</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="parametersTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Report Upload -->
+                <div class="form-group full-width">
+                    <label for="reportUpload">Upload Report</label>
+                    <div class="file-upload">
+                        <input type="file" id="reportUpload" name="reportUpload" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <span class="file-upload-label">Drag and drop or click to upload report (PDF, JPG, PNG)</span>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Report parameters configuration with reference values
+        const reportParameters = {
+            ESR: [{
+                name: 'ESR',
+                label: 'ESR',
+                type: 'text',
+                reference: '0-20 mm/hr'
+            }],
+            CRP: [{
+                name: 'C-Reactive Protein',
+                label: 'C-Reactive Protein',
+                type: 'text',
+                reference: '<10 mg/L'
+            }],
+            FBS: [{
+                name: 'Blood Glucose Fasting',
+                label: 'Blood Glucose Fasting (Plasma Glucose Fasting)',
+                type: 'text',
+                reference: '70-99 mg/dL'
+            }],
+            'Ultra Sound Scan': [{
+                name: 'Gall Bladder',
+                label: 'Gall Bladder',
+                type: 'text',
+                reference: 'Normal: No stones, no thickening'
+            }, {
+                name: 'Spleen',
+                label: 'Spleen',
+                type: 'text',
+                reference: 'Normal: 9-13 cm'
+            }, {
+                name: 'Right Kidney',
+                label: 'Right Kidney',
+                type: 'text',
+                reference: 'Normal: 10-12 cm'
+            }, {
+                name: 'Left Kidney',
+                label: 'Left Kidney',
+                type: 'text',
+                reference: 'Normal: 10-12 cm'
+            }, {
+                name: 'Pancreas',
+                label: 'Pancreas',
+                type: 'text',
+                reference: 'Normal: No masses, normal duct'
+            }, {
+                name: 'Urinary Bladder',
+                label: 'Urinary Bladder',
+                type: 'text',
+                reference: 'Normal: No wall thickening'
+            }, {
+                name: 'Prostate',
+                label: 'Prostate',
+                type: 'text',
+                reference: 'Normal: <25 cc volume'
+            }, {
+                name: 'Uterus',
+                label: 'Uterus',
+                type: 'text',
+                reference: 'Normal: 7-8 cm length'
+            }, {
+                name: 'Free Fluid',
+                label: 'Free Fluid',
+                type: 'text',
+                reference: 'Normal: None'
+            }],
+            'Upper & Lower Limb Arterial Duplex': [{
+                name: 'LSU',
+                label: 'LSU',
+                type: 'text',
+                reference: 'Normal: No stenosis'
+            }, {
+                name: 'ATA1',
+                label: 'ATA 1',
+                type: 'text',
+                reference: 'Normal: Triphasic flow'
+            }, {
+                name: 'ATA2',
+                label: 'ATA 2',
+                type: 'text',
+                reference: 'Normal: Triphasic flow'
+            }, {
+                name: 'DP',
+                label: 'DP',
+                type: 'text',
+                reference: 'Normal: Triphasic flow'
+            }, {
+                name: 'CFA',
+                label: 'CFA',
+                type: 'text',
+                reference: 'Normal: No plaque'
+            }, {
+                name: 'SFA',
+                label: 'SFA',
+                type: 'text',
+                reference: 'Normal: No stenosis'
+            }, {
+                name: 'POP',
+                label: 'POP',
+                type: 'text',
+                reference: 'Normal: No occlusion'
+            }, {
+                name: 'PTA1',
+                label: 'PTA 1',
+                type: 'text',
+                reference: 'Normal: Triphasic flow'
+            }, {
+                name: 'PTA2',
+                label: 'PTA 2',
+                type: 'text',
+                reference: 'Normal: Triphasic flow'
+            }],
+            'Serum Lithium': [{
+                name: 'Serum Lithium',
+                label: 'Serum Lithium',
+                type: 'text',
+                reference: '0.6-1.2 mmol/L'
+            }],
+            Histopathology: [{
+                name: 'Mesorectal Fat',
+                label: 'Small Area of Mesorectal Fat in Tumour Area',
+                type: 'text',
+                reference: 'Normal: No invasion'
+            }, {
+                name: 'Venous Invasion',
+                label: 'Venous Invasion',
+                type: 'text',
+                reference: 'Normal: None'
+            }, {
+                name: 'Lymphatic Invasion',
+                label: 'Lymphatic Invasion',
+                type: 'text',
+                reference: 'Normal: None'
+            }, {
+                name: 'Perineural Invasion',
+                label: 'Perineural Invasion',
+                type: 'text',
+                reference: 'Normal: None'
+            }, {
+                name: 'Poorly Differentiated Clusters',
+                label: 'Poorly Differentiated Clusters',
+                type: 'text',
+                reference: 'Normal: None'
+            }, {
+                name: 'Tumour Infiltrating Lymphocytes',
+                label: 'Tumour Infiltrating Lymphocytes',
+                type: 'text',
+                reference: 'Normal: Variable'
+            }, {
+                name: 'Tumour Deposits',
+                label: 'Tumour Deposits',
+                type: 'text',
+                reference: 'Normal: None'
+            }, {
+                name: 'Necrosis',
+                label: 'Necrosis',
+                type: 'text',
+                reference: 'Normal: None'
+            }, {
+                name: 'Proximal Margin',
+                label: 'Proximal Margin',
+                type: 'text',
+                reference: 'Normal: Clear'
+            }, {
+                name: 'Distal Margin',
+                label: 'Distal Margin',
+                type: 'text',
+                reference: 'Normal: Clear'
+            }, {
+                name: 'Radial Margin',
+                label: 'Radial Margin',
+                type: 'text',
+                reference: 'Normal: Clear'
+            }, {
+                name: 'Conclusion',
+                label: 'Conclusion',
+                type: 'textarea',
+                reference: 'N/A'
+            }],
+            CECT: [{
+                name: 'CECT Description',
+                label: 'CECT Description',
+                type: 'textarea',
+                reference: 'N/A'
+            }],
+            'CRP Serum': [{
+                name: 'Reactive Protein',
+                label: 'Reactive Protein',
+                type: 'text',
+                reference: '<10 mg/L'
+            }],
+            'Full Blood Count': [{
+                name: 'Haemoglobin',
+                label: 'Haemoglobin',
+                type: 'text',
+                reference: '13.5-17.5 g/dL (men), 12.0-15.5 g/dL (women)'
+            }, {
+                name: 'RBC',
+                label: 'RBC',
+                type: 'text',
+                reference: '4.5-5.9 x10^12/L (men), 4.1-5.1 x10^12/L (women)'
+            }, {
+                name: 'HCT',
+                label: 'HCT',
+                type: 'text',
+                reference: '40-50% (men), 36-46% (women)'
+            }, {
+                name: 'MCV',
+                label: 'MCV',
+                type: 'text',
+                reference: '80-100 fL'
+            }, {
+                name: 'MCH',
+                label: 'MCH',
+                type: 'text',
+                reference: '27-34 pg'
+            }, {
+                name: 'MCHC',
+                label: 'MCHC',
+                type: 'text',
+                reference: '32-36 g/dL'
+            }, {
+                name: 'RDW-CV',
+                label: 'RDW-CV',
+                type: 'text',
+                reference: '11.5-14.5%'
+            }, {
+                name: 'Platelet Count',
+                label: 'Platelet Count',
+                type: 'text',
+                reference: '150-450 x10^9/L'
+            }, {
+                name: 'MPV',
+                label: 'MPV',
+                type: 'text',
+                reference: '7.4-10.4 fL'
+            }, {
+                name: 'Total Leucocyte Count',
+                label: 'Total Leucocyte Count',
+                type: 'text',
+                reference: '4-11 x10^9/L'
+            }, {
+                name: 'Neutrophils',
+                label: 'Neutrophils',
+                type: 'text',
+                reference: '40-75%'
+            }, {
+                name: 'Lymphocytes',
+                label: 'Lymphocytes',
+                type: 'text',
+                reference: '20-45%'
+            }, {
+                name: 'Eosinophils',
+                label: 'Eosinophils',
+                type: 'text',
+                reference: '1-6%'
+            }, {
+                name: 'Monocytes',
+                label: 'Monocytes',
+                type: 'text',
+                reference: '2-10%'
+            }, {
+                name: 'Basophils',
+                label: 'Basophils',
+                type: 'text',
+                reference: '0-1%'
+            }],
+            'Lung Function': [{
+                name: 'Lung Function Description',
+                label: 'Lung Function Description',
+                type: 'textarea',
+                reference: 'N/A'
+            }],
+            FBC: [{
+                name: 'Lym#',
+                label: 'Lym#',
+                type: 'text',
+                reference: '1.0-4.8 x10^9/L'
+            }, {
+                name: 'IMG#',
+                label: 'IMG#',
+                type: 'text',
+                reference: '0.0-0.1 x10^9/L'
+            }, {
+                name: 'WBC',
+                label: 'WBC',
+                type: 'text',
+                reference: '4-11 x10^9/L'
+            }, {
+                name: 'Neu#',
+                label: 'Neu#',
+                type: 'text',
+                reference: '2.0-7.5 x10^9/L'
+            }, {
+                name: 'Mon#',
+                label: 'Mon#',
+                type: 'text',
+                reference: '0.2-0.8 x10^9/L'
+            }, {
+                name: 'Eos#',
+                label: 'Eos#',
+                type: 'text',
+                reference: '0.0-0.4 x10^9/L'
+            }, {
+                name: 'Bas#',
+                label: 'Bas#',
+                type: 'text',
+                reference: '0.0-0.1 x10^9/L'
+            }, {
+                name: 'Neu%',
+                label: 'Neu%',
+                type: 'text',
+                reference: '40-75%'
+            }, {
+                name: 'Lym%',
+                label: 'Lym%',
+                type: 'text',
+                reference: '20-45%'
+            }, {
+                name: 'Mon%',
+                label: 'Mon%',
+                type: 'text',
+                reference: '2-10%'
+            }, {
+                name: 'Eos%',
+                label: 'Eos%',
+                type: 'text',
+                reference: '1-6%'
+            }, {
+                name: 'Bas%',
+                label: 'Bas%',
+                type: 'text',
+                reference: '0-1%'
+            }, {
+                name: 'RBC',
+                label: 'RBC',
+                type: 'text',
+                reference: '4.5-5.9 x10^12/L (men), 4.1-5.1 x10^12/L (women)'
+            }, {
+                name: 'HGB',
+                label: 'HGB',
+                type: 'text',
+                reference: '13.5-17.5 g/dL (men), 12.0-15.5 g/dL (women)'
+            }, {
+                name: 'HCT',
+                label: 'HCT',
+                type: 'text',
+                reference: '40-50% (men), 36-46% (women)'
+            }, {
+                name: 'MCV',
+                label: 'MCV',
+                type: 'text',
+                reference: '80-100 fL'
+            }, {
+                name: 'MCH',
+                label: 'MCH',
+                type: 'text',
+                reference: '27-34 pg'
+            }, {
+                name: 'MCHC',
+                label: 'MCHC',
+                type: 'text',
+                reference: '32-36 g/dL'
+            }, {
+                name: 'RDW-CV',
+                label: 'RDW-CV',
+                type: 'text',
+                reference: '11.5-14.5%'
+            }, {
+                name: 'RDW-SD',
+                label: 'RDW-SD',
+                type: 'text',
+                reference: '39-46 fL'
+            }, {
+                name: 'MPV',
+                label: 'MPV',
+                type: 'text',
+                reference: '7.4-10.4 fL'
+            }, {
+                name: 'PCT',
+                label: 'PCT',
+                type: 'text',
+                reference: '0.15-0.50%'
+            }, {
+                name: 'IMG%',
+                label: 'IMG%',
+                type: 'text',
+                reference: '0-1%'
+            }, {
+                name: 'PLT',
+                label: 'PLT',
+                type: 'text',
+                reference: '150-450 x10^9/L'
+            }, {
+                name: 'PDW',
+                label: 'PDW',
+                type: 'text',
+                reference: '9-17 fL'
+            }]
+        };
+
+        // File upload label update
+        const fileInput = document.getElementById('reportUpload');
+        const fileLabel = document.querySelector('.file-upload-label');
+        fileInput.addEventListener('change', () => {
+            fileLabel.textContent = fileInput.files.length > 0 ?
+                fileInput.files[0].name :
+                'Drag and drop or click to upload report (PDF, JPG, PNG)';
+        });
+
+        // Dynamic parameters rendering
+        const reportTypeSelect = document.getElementById('reportType');
+        const parametersTableBody = document.getElementById('parametersTableBody');
+
+        function renderParameters(reportType) {
+            parametersTableBody.innerHTML = ''; // Clear existing parameters
+            if (reportType && reportParameters[reportType]) {
+                reportParameters[reportType].forEach(param => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                        <td>${param.label}</td>
+                        <td class="reference-value">${param.reference}</td>
+                        <td>
+                            ${param.type === 'textarea' ? 
+                                `<textarea id="${param.name}" name="${param.name}" placeholder="Enter ${param.label}"></textarea>` :
+                                `<input type="text" id="${param.name}" name="${param.name}" placeholder="Enter ${param.label}">`}
+                        </td>
+                    `;
+                    parametersTableBody.appendChild(row);
+                });
+            }
+        }
+
+        reportTypeSelect.addEventListener('change', () => {
+            renderParameters(reportTypeSelect.value);
+        });
+
+        // Form submission
+        async function submitForm() {
+            const form = document.getElementById('labReportForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const formData = new FormData(form);
+            const data = {};
+            for (const [key, value] of formData.entries()) {
+                if (value instanceof File && value.size > 0) {
+                    // Convert file to base64 for demonstration (in a real app, you'd send the file to a server)
+                    const reader = new FileReader();
+                    reader.readAsDataURL(value);
+                    await new Promise(resolve => {
+                        reader.onload = () => {
+                            data[key] = { name: value.name, data: reader.result };
+                            resolve();
+                        };
+                    });
+                } else {
+                    data[key] = value;
+                }
+            }
+            console.log('Lab Report Data:', data);
+            alert('Lab Report Submitted!');
+        }
+    </script>
+</body>
+
+</html>

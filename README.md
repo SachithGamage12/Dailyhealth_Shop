@@ -1,2 +1,2 @@
-# Dailyhealth_Shop
-The Website that brings healthcare essentials to your doorstep, making it easy to order health and wellness products online.
+# Dailyhealth
+Created a health and wellness website to provide daily tips, resources, and tracking tools for a healthier lifestyle.

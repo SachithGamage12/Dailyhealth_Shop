@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Care Request Form</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h2>Patient's Information</h2>
+    <table>
+        <tr>
+            <th>Date</th>
+            <td><input type="date" name="date"></td>
+            <th>Name</th>
+            <td><input type="text" name="name"></td>
+            <th>Gender</th>
+            <td>
+                <select name="gender">
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select>
+            </td>
+            <th>Age</th>
+            <td><input type="number" name="age"></td>
+        </tr>
+        <tr>
+            <th>Weight</th>
+            <td><input type="number" name="weight" step="0.1"> kg</td>
+            <th>Height</th>
+            <td><input type="number" name="height" step="0.1"> cm</td>
+            <th>Estimated</th>
+            <td><input type="checkbox" name="estimated"></td>
+            <th>Measured</th>
+            <td><input type="checkbox" name="measured"></td>
+        </tr>
+    </table>
+
+    <h2>Section A: Diet Request</h2>
+    <table>
+        <tr>
+            <th>Level of Appetite</th>
+            <td>
+                <input type="radio" name="appetite_level" value="loss"> Loss<br>
+                <input type="radio" name="appetite_level" value="low"> Low<br>
+                <input type="radio" name="appetite_level" value="medium"> Medium<br>
+                <input type="radio" name="appetite_level" value="high"> High
+            </td>
+        </tr>
+        <tr>
+            <th>Frequent Appetite</th>
+            <td><input type="checkbox" name="frequent_appetite"></td>
+        </tr>
+        <tr>
+            <th>Chewing Problems</th>
+            <td><input type="checkbox" name="chewing_problems"></td>
+        </tr>
+        <tr>
+            <th>Swallowing Problems</th>
+            <td><input type="checkbox" name="swallowing_problems"></td>
+        </tr>
+        <tr>
+            <th>Sensory Problems</th>
+            <td>
+                <input type="checkbox" name="taste_problem"> Taste<br>
+                <input type="checkbox" name="smell_problem"> Smell<br>
+                <input type="checkbox" name="vision_problem"> Vision<br>
+                <input type="checkbox" name="hearing_problem"> Hearing
+            </td>
+        </tr>
+        <tr>
+            <th>Vomiting</th>
+            <td><input type="checkbox" name="vomiting"></td>
+        </tr>
+        <tr>
+            <th>Nausea</th>
+            <td><input type="checkbox" name="nausea"></td>
+        </tr>
+        <tr>
+            <th>Pains, Aches, Ulcers in Elementary System</th>
+            <td><input type="checkbox" name="elementary_pains"></td>
+        </tr>
+        <tr>
+            <th>Defecation Problems</th>
+            <td>
+                <input type="checkbox" name="diarrhea"> Diarrhea<br>
+                <input type="checkbox" name="constipation"> Constipation<br>
+                <input type="checkbox" name="loose_stools"> Loose Stools<br>
+                <input type="checkbox" name="undigested_matter"> Undigested Matter in Faeces<br>
+                <input type="checkbox" name="bad_smell"> Bad Smell in Faeces<br>
+                <input type="checkbox" name="blood_in_faeces"> Blood in Faeces<br>
+                <input type="checkbox" name="colour_changes"> Colour Changes in Faeces<br>
+                <input type="checkbox" name="irregularities"> Irregularities in Defecating<br>
+                <input type="checkbox" name="difficulty_defecating"> Difficulty in Defecating
+            </td>
+        </tr>
+        <tr>
+            <th>Urination Problems</th>
+            <td>
+                <input type="checkbox" name="difficulty_urination"> Difficulty in Urination<br>
+                <input type="checkbox" name="aurea"> Aurea<br>
+                <input type="checkbox" name="frequent_urination"> Frequent Need for Urination<br>
+                <input type="checkbox" name="colour_changes_urine"> Colour Changes in Urine<br>
+                <input type="checkbox" name="particles_urine"> Particles in Urine<br>
+                <input type="checkbox" name="bubbles_urination"> Bubbles in Urination
+            </td>
+        </tr>
+    </table>
+
+    <h2>Section B</h2>
+    <table>
+        <tr>
+            <th>Preferred Meal Pattern</th>
+            <td>
+                <input type="checkbox" name="bed_tea"> Bed Tea<br>
+                <input type="checkbox" name="breakfast"> Breakfast<br>
+                <input type="checkbox" name="mid_morning_snack"> Mid Morning Snack<br>
+                <input type="checkbox" name="lunch"> Lunch<br>
+                <input type="checkbox" name="evening_snack"> Evening Snack<br>
+                <input type="checkbox" name="dinner"> Dinner<br>
+                <input type="checkbox" name="late_night_snack"> Late Night Snack<br>
+                <input type="checkbox" name="small_frequent"> Small and Frequent
+            </td>
+        </tr>
+        <tr>
+            <th>Meal Preparation for a Week</th>
+            <td>
+                <input type="checkbox" name="home_own"> Prepared at Home (Own)<br>
+                <input type="checkbox" name="home_mp"> Prepared at Home (MP)<br>
+                <input type="checkbox" name="home_relative"> Prepared at Home (Relative)<br>
+                <input type="checkbox" name="outside_relative"> Prepared at Outside (Relative)<br>
+                <input type="checkbox" name="outside_neighbour"> Prepared at Outside (Neighbour)<br>
+                <input type="checkbox" name="outside_friend"> Prepared at Outside (Friend)<br>
+                <input type="checkbox" name="workplace"> Provided by Workplace<br>
+                <input type="checkbox" name="purchased_work_canteen"> Purchased at (Workplace Canteen)<br>
+                <input type="checkbox" name="purchased_outside"> Purchased at (Outside Restaurant)
+            </td>
+        </tr>
+    </table>
+
+    <h2>Food Diary / 24 Hour Recall</h2>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Serial No.</th>
+            <th>Time</th>
+            <th>Food Description</th>
+            <th>Amount</th>
+            <th>Remarks</th>
+        </tr>
+        <tr>
+            <td><input type="date" name="food_date"></td>
+            <td><input type="number" name="serial_no"></td>
+            <td><input type="time" name="food_time"></td>
+            <td>
+                <input type="text" name="food"> (Food)<br>
+                <input type="text" name="cooking_method"> (Cooking Method)
+            </td>
+            <td><input type="text" name="amount"></td>
+            <td><input type="text" name="remarks"></td>
+        </tr>
+    </table>
+
+    <h2>Additional Information</h2>
+    <table>
+        <tr>
+            <th>Cooking Skill</th>
+            <td>
+                <select name="cooking_skill">
+                    <option value="good">Good</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="low">Low</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Free Availability of Food</th>
+            <td>
+                <input type="radio" name="food_availability" value="yes"> Yes<br>
+                <input type="radio" name="food_availability" value="no"> No - <input type="text" name="specify_availability">
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

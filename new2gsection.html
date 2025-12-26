@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Care Request Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 0.5rem;
+        }
+        
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 0.2rem;
+        }
+        
+        input,
+        select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            background: #f9fafb;
+        }
+        
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 4px rgba(59, 130, 246, 0.3);
+            background: white;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        
+        th,
+        td {
+            padding: 0.6rem;
+            border: 1px solid #e5e7eb;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+        
+        th {
+            background: #f0f7ff;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        
+        td input,
+        td select {
+            width: 100%;
+            border: none;
+            background: transparent;
+            padding: 0.2rem;
+        }
+        
+        td input:focus,
+        td select:focus {
+            outline: none;
+            border: none;
+            box-shadow: none;
+            background: #f9fafb;
+        }
+        
+        .add-row-btn,
+        .submit-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .add-row-btn {
+            background: #6b7280;
+            margin-bottom: 1rem;
+        }
+        
+        .add-row-btn:hover {
+            background: #4b5563;
+            transform: translateY(-1px);
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to right, #2563eb, #db2777);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 600px) {
+            th,
+            td {
+                font-size: 0.8rem;
+                padding: 0.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Nutrition Care Request Form</h1>
+        <form id="nutritionForm">
+            <div class="form-grid">
+                <!-- Patient Information -->
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select name="gender" required>
+                        <option value="">Select</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" name="age" required>
+                </div>
+                <div class="form-group">
+                    <label>Weight (kg)</label>
+                    <input type="number" name="weight" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label>Height (cm)</label>
+                    <input type="number" name="height" step="0.1" required>
+                </div>
+
+                <!-- Diet Request Section -->
+                <div class="form-group">
+                    <label>Level of Appetite</label>
+                    <div>
+                        <input type="radio" name="appetite_level" value="loss" required> Loss<br>
+                        <input type="radio" name="appetite_level" value="low"> Low<br>
+                        <input type="radio" name="appetite_level" value="medium"> Medium<br>
+                        <input type="radio" name="appetite_level" value="high"> High
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Frequent Appetite</label>
+                    <input type="checkbox" name="frequent_appetite">
+                </div>
+                <div class="form-group">
+                    <label>Chewing Problems</label>
+                    <input type="checkbox" name="chewing_problems">
+                </div>
+                <div class="form-group">
+                    <label>Swallowing Problems</label>
+                    <input type="checkbox" name="swallowing_problems">
+                </div>
+                <div class="form-group">
+                    <label>Sensory Problems</label>
+                    <div>
+                        <input type="checkbox" name="taste_problem"> Taste<br>
+                        <input type="checkbox" name="smell_problem"> Smell<br>
+                        <input type="checkbox" name="vision_problem"> Vision<br>
+                        <input type="checkbox" name="hearing_problem"> Hearing
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Vomiting</label>
+                    <input type="checkbox" name="vomiting">
+                </div>
+                <div class="form-group">
+                    <label>Nausea</label>
+                    <input type="checkbox" name="nausea">
+                </div>
+                <div class="form-group">
+                    <label>Pains, Aches, Ulcers in Elementary System</label>
+                    <input type="checkbox" name="elementary_pains">
+                </div>
+                <div class="form-group">
+                    <label>Defecation Problems</label>
+                    <div>
+                        <input type="checkbox" name="diarrhea"> Diarrhea<br>
+                        <input type="checkbox" name="constipation"> Constipation<br>
+                        <input type="checkbox" name="loose_stools"> Loose Stools<br>
+                        <input type="checkbox" name="undigested_matter"> Undigested Matter in Faeces<br>
+                        <input type="checkbox" name="bad_smell"> Bad Smell in Faeces<br>
+                        <input type="checkbox" name="blood_in_faeces"> Blood in Faeces<br>
+                        <input type="checkbox" name="colour_changes"> Colour Changes in Faeces<br>
+                        <input type="checkbox" name="irregularities"> Irregularities in Defecating<br>
+                        <input type="checkbox" name="difficulty_defecating"> Difficulty in Defecating
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Urination Problems</label>
+                    <div>
+                        <input type="checkbox" name="difficulty_urination"> Difficulty in Urination<br>
+                        <input type="checkbox" name="aurea"> Aurea<br>
+                        <input type="checkbox" name="frequent_urination"> Frequent Need for Urination<br>
+                        <input type="checkbox" name="colour_changes_urine"> Colour Changes in Urine<br>
+                        <input type="checkbox" name="particles_urine"> Particles in Urine<br>
+                        <input type="checkbox" name="bubbles_urination"> Bubbles in Urination
+                    </div>
+                </div>
+
+                <!-- Meal Preferences -->
+                <div class="form-group">
+                    <label>Preferred Meal Pattern</label>
+                    <div>
+                        <input type="checkbox" name="bed_tea"> Bed Tea<br>
+                        <input type="checkbox" name="breakfast"> Breakfast<br>
+                        <input type="checkbox" name="mid_morning_snack"> Mid Morning Snack<br>
+                        <input type="checkbox" name="lunch"> Lunch<br>
+                        <input type="checkbox" name="evening_snack"> Evening Snack<br>
+                        <input type="checkbox" name="dinner"> Dinner<br>
+                        <input type="checkbox" name="late_night_snack"> Late Night Snack<br>
+                        <input type="checkbox" name="small_frequent"> Small and Frequent
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Meal Preparation for a Week</label>
+                    <div>
+                        <input type="checkbox" name="home_own"> Prepared at Home (Own)<br>
+                        <input type="checkbox" name="home_mp"> Prepared at Home (MP)<br>
+                        <input type="checkbox" name="home_relative"> Prepared at Home (Relative)<br>
+                        <input type="checkbox" name="outside_relative"> Prepared at Outside (Relative)<br>
+                        <input type="checkbox" name="outside_neighbour"> Prepared at Outside (Neighbour)<br>
+                        <input type="checkbox" name="outside_friend"> Prepared at Outside (Friend)<br>
+                        <input type="checkbox" name="workplace"> Provided by Workplace<br>
+                        <input type="checkbox" name="purchased_work_canteen"> Purchased at (Workplace Canteen)<br>
+                        <input type="checkbox" name="purchased_outside"> Purchased at (Outside Restaurant)
+                    </div>
+                </div>
+
+                <!-- Food Diary / 24 Hour Recall -->
+                <div class="table-container">
+                    <table id="foodDiaryTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Serial No.</th>
+                                <th>Time</th>
+                                <th>Food Description</th>
+                                <th>Amount</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="foodDiaryTableBody">
+                            <tr class="food-row">
+                                <td><input type="date" name="food_date_1" required></td>
+                                <td><input type="number" name="serial_no_1" required></td>
+                                <td><input type="time" name="food_time_1" required></td>
+                                <td>
+                                    <input type="text" name="food_1" placeholder="Food" required><br>
+                                    <input type="text" name="cooking_method_1" placeholder="Cooking Method">
+                                </td>
+                                <td><input type="text" name="amount_1" placeholder="e.g., 1 cup" required></td>
+                                <td><input type="text" name="remarks_1"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button type="button" class="add-row-btn" onclick="addFoodRow()">Add Another Food Entry</button>
+
+                <!-- Additional Information -->
+                <div class="form-group">
+                    <label>Cooking Skill</label>
+                    <select name="cooking_skill" required>
+                        <option value="">Select</option>
+                        <option value="good">Good</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Free Availability of Food</label>
+                    <div>
+                        <input type="radio" name="food_availability" value="yes" required> Yes<br>
+                        <input type="radio" name="food_availability" value="no"> No - <input type="text" name="specify_availability" class="hidden" placeholder="Specify">
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let foodRowCount = 1;
+
+        // Custom field logic for "Free Availability of Food"
+        function setupAvailabilityField(radioYes, radioNo, input) {
+            radioYes.addEventListener('change', () => {
+                input.classList.add('hidden');
+                input.value = '';
+            });
+            radioNo.addEventListener('change', () => {
+                input.classList.remove('hidden');
+            });
+        }
+
+        // Initialize existing availability fields
+        const radioYes = document.querySelector('input[value="yes"]');
+        const radioNo = document.querySelector('input[value="no"]');
+        const availabilityInput = document.querySelector('input[name="specify_availability"]');
+        setupAvailabilityField(radioYes, radioNo, availabilityInput);
+
+        // Add new food diary row
+        function addFoodRow() {
+            foodRowCount++;
+            const tbody = document.getElementById('foodDiaryTableBody');
+            const newRow = document.createElement('tr');
+            newRow.className = 'food-row';
+            newRow.innerHTML = `
+                <td><input type="date" name="food_date_${foodRowCount}" required></td>
+                <td><input type="number" name="serial_no_${foodRowCount}" required></td>
+                <td><input type="time" name="food_time_${foodRowCount}" required></td>
+                <td>
+                    <input type="text" name="food_${foodRowCount}" placeholder="Food" required><br>
+                    <input type="text" name="cooking_method_${foodRowCount}" placeholder="Cooking Method">
+                </td>
+                <td><input type="text" name="amount_${foodRowCount}" placeholder="e.g., 1 cup" required></td>
+                <td><input type="text" name="remarks_${foodRowCount}"></td>
+            `;
+            tbody.appendChild(newRow);
+        }
+
+        // Form submission
+        function submitForm() {
+            const form = document.getElementById('nutritionForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const formData = new FormData(form);
+            const data = {};
+            for (const [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            console.log('Nutrition Form Data:', data);
+            alert('Nutrition Care Request Submitted!');
+        }
+    </script>
+</body>
+
+</html>

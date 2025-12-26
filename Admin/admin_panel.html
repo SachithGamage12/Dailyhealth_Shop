@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #b3cce6, #E9EDF4);
+        }
+        
+        .container {
+            width: 250px;
+            background-color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            margin: 15px 0;
+            padding: 10px;
+            font-size: 16px;
+            color: #666;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .sidebar-menu a:hover {
+            background-color: #c6d9ec;
+            color: #204060;
+            font-weight: bold;
+        }
+        
+        main {
+            margin-left: 270px;
+            width: calc(100% - 250px);
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: white;
+            position: fixed;
+            width: 100%;
+            z-index: 1001;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-image {
+            width: 50px;
+            /* Adjust the size as needed */
+            height: auto;
+            margin-right: 10px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #204060;
+            text-transform: uppercase;
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .content-intro {
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #b3cce6, #E9EDF4);
+        }
+        
+        .content-intro h2 {
+            font-size: 2rem;
+            color: #204060;
+        }
+        
+        .grid {
+            padding: 30px;
+            background: linear-gradient(135deg, #b3cce6, #E9EDF4);
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card img {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+        
+        .button a {
+            display: inline-block;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #E9EDF4, #b3cce6);
+            color: #204060;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .button a:hover {
+            background-color: #204060;
+            color: white;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 250px;
+                height: 100vh;
+                position: fixed;
+                left: -250px;
+                /* Start hidden */
+                top: 0;
+                transition: left 0.3s ease-in-out;
+            }
+            .container.show {
+                left: 0;
+                /* Show the sidebar when toggled */
+            }
+            main {
+                margin-left: 0;
+                width: 100%;
+            }
+            .menu-toggle {
+                display: block;
+                font-size: 30px;
+                cursor: pointer;
+                margin-left: 15px;
+            }
+            .sidebar-menu {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+            }
+            .sidebar-menu a {
+                font-size: 18px;
+                margin: 10px 0;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .navbar {
+                padding: 10px;
+            }
+            .logo-image {
+                width: 40px;
+            }
+            .logo {
+                font-size: 18px;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <span class="menu-toggle" onclick="toggleMenu()">&#9776;</span>
+        <img class="logo-image" src="../Admin/img/logo.jpeg" alt="logo">
+        <div class="logo">Daily Routine</div>
+    </header>
+
+    <div class="container" id="sidebar">
+        <div class="sidebar-menu">
+            <a href="#dashboard">Home</a>
+            <a href="userdashboard.php">User Management</a>
+            <a href="calenderform.php">Calender Title Management</a>
+            <a href="daily_message_form.php">Daily Message Management</a>
+            <a href="winner_form.php">Winner selection Management</a>
+            <a href="vid_form.php">Video upload Management</a>
+            <a href="add_download.php">Download Item Management</a>
+            <a href="event_add.php">Health Event Management</a>
+            <a href="../logout.php">Logout</a>
+
+        </div>
+    </div>
+
+    <main>
+        <section class="content-intro">
+            <h2>Welcome, Admin!</h2>
+            <p>Here is an overview of your dashboard.</p>
+        </section>
+
+        <section class="grid">
+            <div class="grid-container">
+                <div class="card">
+                    <img src="../Admin/img/User management.jpg" alt="User Management">
+                    <div class="button">
+                        <a href="userdashboard.php">User Management</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../Admin/img/Calender.jpg" alt="Calender Management">
+                    <div class="button">
+                        <a href="calenderform.php">Calender Title Management</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../Admin/img/Daily Msg.jpg" alt="Daily Message">
+                    <div class="button">
+                        <a href="daily_message_form.php">Daily Message Management</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../Admin/img/Daily Msg.jpg" alt="Daily Message">
+                    <div class="button">
+                        <a href="special_message_form.php">Special Message Management</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../Admin/img/Winner.jpg" alt="Winner Selection">
+                    <div class="button">
+                        <a href="winner_form.php">Winner selection Management</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../Admin/img/Video.jpg" alt="Video Management">
+                    <div class="button">
+                        <a href="vid_form.php">Video upload Management</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../Admin/img/Download.jpg" alt="Download Management">
+                    <div class="button">
+                        <a href="add_download.php">Download Item Management</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../Admin/img/Health Event.jpg" alt="Health Event">
+                    <div class="button">
+                        <a href="event_add.php">Health Event Management</a>
+                    </div>
+                </div>
+                 <div class="card">
+                    <img src="../Admin/img/holiday.jpg" alt="Health Event">
+                    <div class="button">
+                        <a href="holiday_marker.php">Holiday marker</a>
+                    </div>
+                </div>
+                 <div class="card">
+                    <img src="../Admin/img/product-store.jpg" alt="Health Event">
+                    <div class="button">
+                        <a href="../shop/add_product.php">Add Product</a>
+                        <a href="../shop/admin_orders.php">View oders</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="../Admin/img/qq.jpg" alt="Health Event">
+                    <div class="button">
+                        <a href="question_form.php">Question</a>
+                         <a href="answer.php">Answer</a>
+                    </div>
+                </div>
+               
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("show");
+        }
+    </script>
+</body>
+
+</html>
